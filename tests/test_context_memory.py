@@ -6,7 +6,7 @@ from tero.config import Config
 from tero.context import ContextManager, ContextTooLarge
 from tero.execution import Budget
 from tero.memory import MemoryStore
-from tero.session import Session, SessionStore
+from tero.session import Session, SessionStore, new_turn
 from tero.storage import Trace
 
 
@@ -177,9 +177,8 @@ def test_tool_excerpt_does_not_trim_failure_or_test_evidence(tmp_path):
     _session, manager, _client, _store = prepared(tmp_path)
 
     def entry(name, status):
-        return {
-            "kind": "turn",
-            "items": [
+        return new_turn(
+            [
                 {
                     "type": "function_call",
                     "name": name,
@@ -187,8 +186,8 @@ def test_tool_excerpt_does_not_trim_failure_or_test_evidence(tmp_path):
                     "arguments": '{"path":"a.py"}',
                 }
             ],
-            "results": {"c": {"status": status, "workspace_effect": "none", "content": "x" * 3000}},
-        }
+            {"c": {"status": status, "workspace_effect": "none", "content": "x" * 3000}},
+        )
 
     assert "Excerpt only" in manager.summary_source(entry("read_file", "success"))
     assert "x" * 3000 in manager.summary_source(entry("read_file", "error"))
@@ -198,9 +197,8 @@ def test_tool_excerpt_does_not_trim_failure_or_test_evidence(tmp_path):
 def test_unobserved_tool_batch_is_kept_paired(tmp_path):
     session, manager, client, store = prepared(tmp_path)
     session.history.append(
-        {
-            "kind": "turn",
-            "items": [
+        new_turn(
+            [
                 {
                     "type": "function_call",
                     "name": "read_file",
@@ -208,8 +206,8 @@ def test_unobserved_tool_batch_is_kept_paired(tmp_path):
                     "arguments": '{"path":"a.py"}',
                 }
             ],
-            "results": {"latest": {"status": "success", "content": "CURRENT"}},
-        }
+            {"latest": {"status": "success", "content": "CURRENT"}},
+        )
     )
     items = prepare(session, manager, client, store)
     assert [item["call_id"] for item in items if item.get("type") == "function_call"] == ["latest"]

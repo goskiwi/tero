@@ -151,6 +151,7 @@ def test_interrupted_verifier_requires_review_after_load(tmp_path):
         "pico-session-6",
         "pico-session-7",
         "tracecode-session-7",
+        "tero-session-7",
     ],
 )
 def test_old_session_is_rejected_without_migration(tmp_path, old_format):

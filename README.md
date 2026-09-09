@@ -53,12 +53,14 @@ TERO_OUTPUT_TOKENS=32000
 
 ## 核心能力
 
-- **工具执行**：`list_files`、`read_file`、`search`、`edit_file`、`write_file`、`run_shell` 和只读 `delegate`。
+- **工具执行**：`list_files`、`read_file`、`search`、`edit_file`、`write_file`、`run_shell`、`read_artifact` 和只读 `delegate`。
 - **恢复指引**：区分失败原因、恢复条件和具体动作；版本冲突返回预期／实际版本及建议读取参数，建议不自动执行。
 - **编辑诊断**：匹配失败返回位置或建议读取范围，仅提供定位提示，不执行模糊替换。
 - **请求重试**：暂时性模型服务／网络错误最多三次尝试，共享请求时间预算，不重放工具。
 - **指标与交付**：汇总后端实际 usage、轮数、工具数、压缩与耗时；缺失用量明确标记。
 - **文件保护**：Runtime 记录已读版本；edit 和覆盖写均需先读；唯一匹配、保留换行、提交前复查、原子发布。
+- **结果与修改证据**：大结果先保存再预览，按 ID 分页读取；文件修改保存原始前像、收据和任务净 Diff，不自动回滚。
+- **只读并行**：默认最多 4 个只读并行；可设置为 1 使用串行，修改与 Shell 始终串行，Session 和结果记账由主线程完成。
 - **运行预算**：默认 32 个主模型轮次、600 秒总时间、120 秒单命令上限。子任务和辅助模型请求共享剩余时间。
 - **上下文**：计入指令、工具和消息，预留输出额度；完整交互作为历史裁剪单位。模型 tokenizer 不匹配时使用明确标记的估算。
 - **RepoMap**：Tree-sitter 提取 Python 符号与静态关系，结合关键词相关度与个性化 PageRank 排序；在剩余预算内提供代码导航，实际细节仍由 read/search 获取。
@@ -107,7 +109,7 @@ Runtime 记录实际成功的观察调用；这只是检查证据，不判断其
 `/retry-denied` 或 `--resume ID --retry-denied` 允许用户显式重新申请已拒绝的审批，
 不会自动批准或执行操作。重复失败记录随未完成任务恢复；新建 Session 或完成后开始新任务才重新计数。
 
-Session 格式为 `tero-session-7`，直接拒绝旧格式，不提供迁移或兼容接口。
+Session 格式为 `tero-session-8`，直接拒绝旧格式，不提供迁移或兼容接口。
 
 `/reset` 新建 Session，长期记忆保留。`/forget` 删除长期记忆，历史记录不同时删除。
 
@@ -150,3 +152,7 @@ Responses 协议参考：[OpenAI Function Calling 文档](https://developers.ope
 不保留旧包、旧命令、旧环境变量或旧 Session 格式的兼容入口。
 既有评测原始记录归档在 `.tero/evaluations/`，其中原运行名称与临时路径保持不变，作为历史证据；
 文档中的原 `pico-main` 来源路径也保留。名称变更后的回归与入口检查不等于重新运行这些真实 LLM 实验。
+
+执行阶段、结果留存、前像与并行的具体边界见 [实现说明](docs/execution-and-evidence.md)。本次升级使用 Session v8，不兼容旧状态。
+
+面试版本已完成一次串行配置下的真实模型验证，当前默认恢复为最多 4 个只读并行。历史结果见 [最终验证](docs/interview-final-validation.md)。

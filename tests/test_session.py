@@ -1,6 +1,6 @@
 import pytest
 
-from tero.session import Session, SessionStore
+from tero.session import Session, SessionStore, new_turn
 from tero.tool_executor import ToolResult
 
 
@@ -8,9 +8,8 @@ def test_round_trip_and_pending_recovery(tmp_path):
     session = Session.create(tmp_path)
     session.user("Fix a file")
     session.history.append(
-        {
-            "kind": "turn",
-            "items": [
+        new_turn(
+            [
                 {
                     "type": "function_call",
                     "name": "write_file",
@@ -24,8 +23,8 @@ def test_round_trip_and_pending_recovery(tmp_path):
                     "call_id": "call2",
                 },
             ],
-            "results": {"call1": ToolResult("success", "done").to_dict()},
-        }
+            {"call1": ToolResult("success", "done").to_dict()},
+        )
     )
     store = SessionStore(tmp_path / ".tero/sessions")
     store.save(session)

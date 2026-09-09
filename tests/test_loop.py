@@ -1,6 +1,7 @@
 import json
 
 from tero import Config, Tero
+from tero.session import new_turn
 from tero.tool_executor import ToolExecutor, ToolResult
 
 
@@ -78,12 +79,9 @@ def test_resume_does_not_execute_unconfirmed_write(tmp_path):
     )
     runtime.session.user("Old task")
     runtime.session.history.append(
-        {
-            "kind": "turn",
-            "items": call("write_file", {"path": "never.txt", "content": "no"}, "c1"),
-            "results": {},
-        }
+        new_turn(call("write_file", {"path": "never.txt", "content": "no"}, "c1"), {})
     )
+    runtime.session.history[-1]["phases"]["c1"] = "running"
     runtime.store.save(runtime.session)
     result = runtime.ask("Continue")
     assert result.status == "completed"
@@ -109,12 +107,9 @@ def test_resume_shell_inspects_and_reports_remaining_uncertainty(tmp_path, monke
         ),
     )
     runtime.session.history.append(
-        {
-            "kind": "turn",
-            "items": call("run_shell", {"command": "never replay this"}, "old"),
-            "results": {},
-        }
+        new_turn(call("run_shell", {"command": "never replay this"}, "old"), {})
     )
+    runtime.session.history[-1]["phases"]["old"] = "running"
     runtime.store.save(runtime.session)
     result = runtime.ask("Continue the local task")
     assert result.status == "completed"
@@ -177,3 +172,42 @@ def test_repeat_limit_closes_remaining_batch_without_executing_it(tmp_path):
     assert not runtime.session.pending()
     assert not result.unconfirmed
     assert runtime.session.history[-1]["results"]["write"]["error"] == "loop_stopped"
+
+
+def test_crash_after_replace_recovers_from_persisted_phase_and_receipt(tmp_path, monkeypatch):
+    import tero.tool_executor as execution
+
+    source = tmp_path / "a.txt"
+    source.write_text("before")
+    runtime = Tero(
+        tmp_path,
+        Config(mode="auto", memory_enabled=False),
+        client_factory=lambda config, trace: FakeClient(
+            trace,
+            [
+                call("read_file", {"path": "a.txt"}, "read"),
+                call(
+                    "edit_file",
+                    {"path": "a.txt", "old_text": "before", "new_text": "after"},
+                    "edit",
+                ),
+            ],
+        ),
+    )
+    original = execution.atomic_write
+
+    def crash(path, payload, **kwargs):
+        durable = json.loads(runtime.store.path(runtime.session.id).read_text())
+        assert durable["history"][-1]["phases"]["edit"] == "running"
+        assert durable["mutations"][-1]["status"] == "prepared"
+        original(path, payload, **kwargs)
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr(execution, "atomic_write", crash)
+    result = runtime.ask("Change the file")
+    assert result.stop_reason == "cancelled"
+    assert source.read_text() == "after"
+    recovered = runtime.session.history[-1]["results"]["edit"]
+    assert recovered["workspace_effect"] == "changed"
+    assert runtime.session.history[-1]["phases"]["edit"] == "finished"
+    assert runtime.session.verification_required

@@ -128,7 +128,7 @@ def test_large_stdout_does_not_hide_stderr(tmp_path):
         "run_shell", {"command": "yes output | head -c 50000; printf important-error >&2; exit 1"}
     )
     assert "important-error" in result.content
-    assert result.data["truncated"]
+    assert result.data["projection_truncated"]
 
 
 def test_shell_timeout_returns_result(tmp_path):
