@@ -5,6 +5,7 @@ import os
 from dataclasses import replace
 from pathlib import Path
 
+from .artifacts import ArtifactStore
 from .config import Config
 from .context import ContextManager
 from .memory import MemoryStore
@@ -45,6 +46,7 @@ class Tero:
         self.repo_map = RepoMap(self.root) if self.config.repo_map_enabled else None
         self.context = ContextManager(self.config, repo_map=self.repo_map)
         self.memory = MemoryStore(state_dir / "memory.json", self.redact)
+        self.artifacts = ArtifactStore(state_dir / "artifacts" / self.session.id, self.redact)
         self.budget = None
 
     def redact(self, text):
@@ -75,6 +77,8 @@ Memory is historical background; current user instructions and current files tak
 When ready, return a concise final answer. Runtime runs the configured verifier and may return failures for repair.
 Do not claim tests passed unless actual results show it. Long-term memory is maintained after the task;
 do not promise that memory was saved or forgotten before the runtime confirms storage.
+Batch independent read/search/list calls in one response; mutations and commands execute serially.
+Use read_artifact to inspect saved output; do not rerun a command merely to recover old logs.
 Delegate only a specific read-only investigation when it materially helps; you own all code edits.
 Current mode: {self.config.mode}. A read-only child has no shell or mutation tools.
 This task requires verification: {self.session.verification_required}.
@@ -164,6 +168,7 @@ Project instructions supplied by the workspace owner:
             raise RuntimeError("Cancel the active task before resetting its session")
         self.session = Session.create(self.root)
         self.store.save(self.session)
+        self.artifacts = ArtifactStore(self.root / ".tero/artifacts" / self.session.id, self.redact)
 
     def make_child(self, turns):
         config = replace(

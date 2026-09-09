@@ -9,6 +9,14 @@ class Args(BaseModel):
 
 class ListArgs(Args):
     path: str = "."
+    offset: int = Field(default=0, ge=0)
+    limit: int = Field(default=200, ge=1, le=200)
+
+
+class ArtifactArgs(Args):
+    artifact_id: str = Field(pattern=r"^[a-f0-9]{32}$")
+    offset: int = Field(default=0, ge=0)
+    max_bytes: int = Field(default=8192, ge=4, le=8192)
 
 
 class ReadArgs(Args):
@@ -44,7 +52,14 @@ class DelegateArgs(Args):
 
 
 TOOLS = {
-    "list_files": (ListArgs, "List a workspace directory (up to 200 entries)."),
+    "list_files": (
+        ListArgs,
+        "List a directory page; use next_offset to continue. Restart at zero if the directory changes.",
+    ),
+    "read_artifact": (
+        ArtifactArgs,
+        "Read a saved result page from this session; never re-executes the original tool.",
+    ),
     "read_file": (
         ReadArgs,
         "Read a UTF-8 file range. Read before every first edit; reread after conflicts.",
@@ -67,7 +82,7 @@ TOOLS = {
         "Delegate bounded read-only analysis. Child cannot modify files or delegate again.",
     ),
 }
-READ_TOOLS = frozenset({"list_files", "read_file", "search"})
+READ_TOOLS = frozenset({"list_files", "read_file", "search", "read_artifact"})
 
 
 def tool_schemas(mode, *, child=False):

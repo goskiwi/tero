@@ -107,8 +107,39 @@ class ContextManager:
         if session.request_start < covered:
             # A compaction must not turn the current task's original wording into a paraphrase.
             result.extend(self.unit(session.history[session.request_start]))
-        for entry in session.history[covered:]:
-            result.extend(self.unit(entry))
+        recent_start, recent = len(session.history), []
+        for index in range(len(session.history) - 1, covered - 1, -1):
+            candidate = self.unit(session.history[index]) + recent
+            if recent and self.count(candidate) > self.config.recent_tokens:
+                break
+            recent, recent_start = candidate, index
+        for index in range(covered, len(session.history)):
+            entry = session.history[index]
+            projected = self.unit(entry)
+            if index < min(session.observed, recent_start) and index != session.request_start:
+                read_ids = {
+                    item["call_id"]
+                    for item in entry.get("items", [])
+                    if item.get("type") == "function_call"
+                    and item.get("name") in {"read_file", "search", "list_files"}
+                }
+                for item in projected:
+                    if (
+                        item.get("type") != "function_call_output"
+                        or item["call_id"] not in read_ids
+                    ):
+                        continue
+                    saved = entry["results"][item["call_id"]]
+                    artifact_id = saved.get("data", {}).get("artifact_id")
+                    if saved["status"] == "success" and artifact_id:
+                        view = {
+                            **saved,
+                            "content": "Older read preview omitted. Use read_artifact "
+                            + artifact_id
+                            + " for saved output; reread the source for current state.",
+                        }
+                        item["output"] = json.dumps(view, ensure_ascii=False)
+            result.extend(projected)
         return result
 
     def summary_source(self, entry):

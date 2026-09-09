@@ -6,6 +6,7 @@ import uuid
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+from .changes import observe_interrupted_file
 from .storage import now, save_json
 from .tool_executor import ToolResult
 from .tools import READ_TOOLS
@@ -26,6 +27,20 @@ def new_loop_control():
     }
 
 
+def new_turn(items, results=None):
+    results = dict(results or {})
+    return {
+        "kind": "turn",
+        "items": items,
+        "results": results,
+        "phases": {
+            item["call_id"]: "finished" if item["call_id"] in results else "pending"
+            for item in items
+            if item.get("type") == "function_call"
+        },
+    }
+
+
 @dataclass
 class Session:
     id: str
@@ -41,8 +56,9 @@ class Session:
     verification_required: bool = False
     verification: dict = field(default_factory=new_verification)
     unconfirmed: list[dict] = field(default_factory=list)
+    mutations: list[dict] = field(default_factory=list)
     created_at: str = field(default_factory=now)
-    format: str = "tero-session-7"
+    format: str = "tero-session-8"
 
     @classmethod
     def create(cls, workspace):
@@ -71,12 +87,24 @@ class Session:
             for item in entry["items"]:
                 if item.get("type") != "function_call" or item["call_id"] in entry["results"]:
                     continue
+                phase = entry["phases"][item["call_id"]]
+                effect, data = "none", {}
+                if phase == "running" and item["name"] not in READ_TOOLS:
+                    effect, data = (
+                        observe_interrupted_file(self, index, item)
+                        if item["name"] in {"edit_file", "write_file"}
+                        else ("unknown", {})
+                    )
                 entry["results"][item["call_id"]] = ToolResult(
-                    "error",
-                    "Interrupted before a result was saved. Inspect current state before retrying.",
-                    "none" if item["name"] in READ_TOOLS else "unknown",
-                    "interrupted",
+                    "partial_success" if effect == "changed" else "error",
+                    "Not started; no old action will be replayed."
+                    if phase == "pending"
+                    else "Execution interrupted; current observation is recorded, not a replayed success.",
+                    effect,
+                    "not_started" if phase == "pending" else "interrupted",
+                    data,
                 ).to_dict()
+                entry["phases"][item["call_id"]] = "finished"
                 self.observe_result(index, item, entry["results"][item["call_id"]])
                 count += 1
         if self.verification["status"] == "running":
@@ -161,7 +189,7 @@ class SessionStore:
         if path.resolve() != path.absolute():
             raise ValueError("Session path must not be redirected")
         value = json.loads(path.read_text())
-        if value.get("format") != "tero-session-7":
+        if value.get("format") != "tero-session-8":
             raise ValueError(
                 "Unsupported session format. Old sessions are not migrated; create a new session."
             )
@@ -173,6 +201,7 @@ class SessionStore:
                 "observed",
                 "compaction_failure",
                 "loop_control",
+                "mutations",
             }
             <= value.keys()
         ):
@@ -258,7 +287,42 @@ class SessionStore:
             for item in session.unconfirmed
         ):
             raise ValueError("Invalid unconfirmed effect record")
+        if not isinstance(session.mutations, list):
+            raise TypeError("Invalid mutation receipts")
+        for receipt in session.mutations:
+            if (
+                not isinstance(receipt, dict)
+                or not {
+                    "id",
+                    "operation",
+                    "path",
+                    "before_revision",
+                    "after_revision",
+                    "preimage_id",
+                    "status",
+                }
+                <= receipt.keys()
+                or receipt["status"] not in {"prepared", "applied", "not_applied", "unknown"}
+            ):
+                raise ValueError("Invalid mutation receipt")
         for entry in session.history:
+            if entry["kind"] == "turn":
+                ids = {
+                    item["call_id"]
+                    for item in entry["items"]
+                    if item.get("type") == "function_call"
+                }
+                phases = entry.get("phases")
+                if (
+                    not isinstance(phases, dict)
+                    or set(phases) != ids
+                    or any(
+                        phase not in {"pending", "running", "finished"}
+                        or (phase == "finished") != (call_id in entry["results"])
+                        for call_id, phase in phases.items()
+                    )
+                ):
+                    raise ValueError("Invalid persisted tool execution phases")
             for result in entry.get("results", {}).values():
                 if "recovery" not in result:
                     raise ValueError("Tool result is missing recovery information")

@@ -40,6 +40,7 @@ def run_coding(workspace, request, config, *, client_factory=None):
         "request": runtime.redact(request),
         "result": result.__dict__,
         "workspace_view": workspace_view,
+        "task_diff": result.task_diff,
         "scope": "Current workspace diff may contain pre-existing/user changes. Untracked file contents are not in the diff.",
     }
     save_json(directory / "delivery.json", report)
@@ -50,12 +51,16 @@ def run_coding(workspace, request, config, *, client_factory=None):
         + f"\n\nTurns: {result.turns}; tools: {result.tools}"
         + "\n\n## Metrics\n\n```json\n"
         + json.dumps(result.metrics, ensure_ascii=False, indent=2)
+        + "\n```\n\n## Task diff\n\n```json\n"
+        + json.dumps(result.task_diff, ensure_ascii=False, indent=2)
         + "\n```\n\n## Current workspace\n\n"
         + report["scope"]
         + "\n\n```json\n"
         + json.dumps(workspace_view, ensure_ascii=False, indent=2)
         + "\n```\n"
     )
+    if result.task_diff.get("artifact_path"):
+        text += "\n[Read the task diff](<" + result.task_diff["artifact_path"] + ">)\n"
     atomic_write(directory / "delivery.md", text.encode())
     return result, directory / "delivery.md"
 

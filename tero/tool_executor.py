@@ -2,13 +2,16 @@
 
 import difflib
 import hashlib
+import json
 import os
 import re
+import uuid
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from pydantic import ValidationError
 
+from .artifacts import CAPTURE_BYTES, PREVIEW_BYTES, ArtifactStore
 from .commands import run_command
 from .execution import ExecutionStopped
 from .storage import atomic_write
@@ -247,6 +250,8 @@ class ToolExecutor:
         *,
         denied=None,
         save_denial=None,
+        artifacts=None,
+        save_mutation=None,
     ):
         self.root = Path(root).resolve()
         self.config, self.budget, self.trace = config, budget, trace
@@ -254,6 +259,11 @@ class ToolExecutor:
         self.read_versions = {}
         self.denied = denied if denied is not None else []
         self.save_denial = save_denial
+        self.artifacts = artifacts or ArtifactStore(
+            self.root / ".tero/artifacts" / uuid.uuid4().hex, trace.redact
+        )
+        self.save_mutation = save_mutation
+        self.operation = None
 
     def resolve(self, value):
         path = Path(value)
@@ -284,13 +294,61 @@ class ToolExecutor:
                 data={"expected_revision": expected, "actual_revision": actual},
             )
 
-    def execute(self, name, arguments):
-        result = self._execute(name, arguments)
+    def execute(self, name, arguments, *, on_start=None):
+        prepared = self.admit(name, arguments)
+        if isinstance(prepared, ToolResult):
+            return self.finish(name, prepared)
+        args, target = prepared
+        if on_start is not None:
+            on_start()
+        self.trace.record("tool_started", tool=name)
+        return self.finish(name, self.run_admitted(name, args, target))
+
+    def finish(self, name, result):
+        """Main-thread boundary for read cache, durable artifacts, preview and Trace."""
+        original = json.dumps(result.to_dict(), ensure_ascii=False)
+        redacted = self.trace.redact(original) != original
         result.content = self.trace.redact(result.content)
+        result.data = json.loads(self.trace.redact(json.dumps(result.data, ensure_ascii=False)))
+        if name == "read_file" and result.status == "success":
+            self.read_versions[result.data["path"]] = result.data["revision"]
+        full = json.dumps(result.to_dict(), ensure_ascii=False)
+        capture_truncated = result.data.get("capture_truncated", False)
+        if name != "read_artifact" and (len(full.encode()) > PREVIEW_BYTES or capture_truncated):
+            artifact = self.artifacts.write_text(
+                full, capture_truncated=capture_truncated, redacted=redacted
+            )
+            result.data.update(
+                artifact_id=artifact["id"],
+                capture_truncated=artifact["capture_truncated"],
+                projection_truncated=True,
+            )
+            for key, value in list(result.data.items()):
+                if isinstance(value, list) and len(value) > 50:
+                    result.data[key] = value[:50]
+                    result.data[key + "_total"] = len(value)
+            text = result.content
+            size = 2000
+            while True:
+                result.content = (
+                    text[:size]
+                    + "\n[Preview; use read_artifact: "
+                    + artifact["id"]
+                    + "]\n"
+                    + text[-size:]
+                )
+                if len(json.dumps(result.to_dict(), ensure_ascii=False).encode()) <= PREVIEW_BYTES:
+                    break
+                size //= 2
+                if size < 1:
+                    raise ValueError("Essential tool metadata exceeds the result budget")
+        else:
+            result.data.setdefault("capture_truncated", False)
+            result.data.setdefault("projection_truncated", False)
         self.trace.record("tool_finished", tool=name, result=result.to_dict())
         return result
 
-    def _execute(self, name, arguments):
+    def admit(self, name, arguments):
         if name not in TOOLS:
             return ToolResult("rejected", "Unknown tool", error="unknown_tool")
         if self.config.mode == "ask" and name not in READ_TOOLS:
@@ -385,16 +443,32 @@ class ToolExecutor:
                 error=filesystem_failure_code(exc),
                 data={"path": target.relative_to(self.root).as_posix()} if target else {},
             )
-        self.trace.record("tool_started", tool=name)
+        return args, target
+
+    def run_admitted(self, name, args, target):
+        """Read runners do no Session, Trace or read-cache writes; mutations remain serial."""
+        mutating = name in {"edit_file", "write_file", "run_shell"}
         try:
-            if name == "read_file":
+            if name == "read_artifact":
+                page_bytes = args["max_bytes"]
+                while True:
+                    page = self.artifacts.read_page(args["artifact_id"], args["offset"], page_bytes)
+                    page["projection_truncated"] = page["has_more"] or page["offset"] > 0
+                    result = ToolResult("success", page.pop("content"), data=page)
+                    if (
+                        len(json.dumps(result.to_dict(), ensure_ascii=False).encode())
+                        <= PREVIEW_BYTES
+                    ):
+                        break
+                    page_bytes = max(4, page_bytes // 2)
+            elif name == "read_file":
                 result = self._read(target, args)
             elif name == "edit_file":
                 result = self._edit(target, args)
             elif name == "write_file":
                 result = self._write(target, args)
             elif name == "list_files":
-                result = self._list(target)
+                result = self._list(target, args)
             elif name == "search":
                 result = self._search(target, args["pattern"])
             elif name == "run_shell":
@@ -439,23 +513,20 @@ class ToolExecutor:
         revision = content_revision(raw)
         text = raw.decode("utf-8")
         logical = target.relative_to(self.root).as_posix()
-        self.read_versions[logical] = revision
         lines = text.splitlines()
         selected = "\n".join(
             f"{i}: {line}" for i, line in enumerate(lines, 1) if args["start"] <= i <= args["end"]
         )
-        truncated = len(selected) > OUTPUT_CHARS
         return ToolResult(
             "success",
-            selected[:OUTPUT_CHARS]
-            + ("\n[truncated; request a smaller range]" if truncated else ""),
+            selected,
             data={
                 "path": logical,
                 "revision": revision,
                 "start": args["start"],
                 "end": min(args["end"], len(lines)),
                 "total_lines": len(lines),
-                "truncated": truncated,
+                "capture_truncated": False,
             },
         )
 
@@ -541,6 +612,23 @@ class ToolExecutor:
 
     def _publish(self, target, before, after, expected):
         mode = target.stat().st_mode & 0o777 if expected != "absent" else 0o644
+        logical = target.relative_to(self.root).as_posix()
+        revision = content_revision(after)
+        preimage = (
+            self.artifacts.write_bytes(before, kind="preimage") if expected != "absent" else None
+        )
+        receipt = {
+            "id": uuid.uuid4().hex,
+            "operation": self.operation,
+            "path": logical,
+            "before_revision": expected,
+            "after_revision": revision,
+            "preimage_id": preimage["id"] if preimage else None,
+            "before_mode": mode,
+            "status": "prepared",
+        }
+        if self.save_mutation is not None:
+            self.save_mutation(receipt)
         try:
             atomic_write(
                 target,
@@ -549,13 +637,23 @@ class ToolExecutor:
                 mode=mode,
                 before_replace=lambda: self._require_revision(target, expected),
             )
-        except FileExistsError as exc:
-            raise ToolError(
-                "revision_conflict", "Another writer created the file; read it before changing it"
-            ) from exc
-        logical = target.relative_to(self.root).as_posix()
-        revision = content_revision(after)
-        self.read_versions[logical] = revision
+        except (ToolError, FileExistsError) as exc:
+            receipt["status"] = "not_applied"
+            if self.save_mutation is not None:
+                self.save_mutation(receipt)
+            if isinstance(exc, FileExistsError):
+                raise ToolError(
+                    "revision_conflict", "Another writer created the file; reread before editing"
+                ) from exc
+            raise
+        except BaseException:
+            receipt["status"] = "unknown"
+            if self.save_mutation is not None:
+                self.save_mutation(receipt)
+            raise
+        receipt["status"] = "applied"
+        if self.save_mutation is not None:
+            self.save_mutation(receipt)
         diff = "".join(
             difflib.unified_diff(
                 before.decode("utf-8").splitlines(True),
@@ -564,7 +662,18 @@ class ToolExecutor:
                 tofile=logical,
             )
         )
+        descriptor = self.artifacts.write_text(diff, kind="diff")
+        receipt["diff_id"] = descriptor["id"]
+        if self.save_mutation is not None:
+            self.save_mutation(receipt)
+        self.read_versions[logical] = revision
         observed = file_revision(target, self.budget)
+        data = {
+            "path": logical,
+            "revision": revision,
+            "receipt": dict(receipt),
+            "diff_id": descriptor["id"],
+        }
         if observed != revision:
             self.read_versions.pop(logical, None)
             return ToolResult(
@@ -572,23 +681,31 @@ class ToolExecutor:
                 "File changed again after writing; reread before continuing",
                 "unknown",
                 "post_write_change",
-                {"path": logical},
+                data,
             )
-        return ToolResult(
-            "success",
-            diff[:OUTPUT_CHARS] or "File written",
-            "changed",
-            data={"path": logical, "revision": revision, "truncated": len(diff) > OUTPUT_CHARS},
-        )
+        return ToolResult("success", diff or "File written", "changed", data=data)
 
-    def _list(self, target):
+    def _list(self, target, args):
         entries = sorted(
             path.name + ("/" if path.is_dir() else "")
             for path in target.iterdir()
             if path.name not in IGNORED
         )
+        offset = args["offset"]
+        if offset > len(entries):
+            raise ToolError(
+                "invalid_range", "Directory changed or offset is invalid; restart at offset zero"
+            )
+        end = min(len(entries), offset + args["limit"])
         return ToolResult(
-            "success", "\n".join(entries[:200]), data={"truncated": len(entries) > 200}
+            "success",
+            "\n".join(entries[offset:end]),
+            data={
+                "offset": offset,
+                "next_offset": end if end < len(entries) else None,
+                "total_entries": len(entries),
+                "has_more": end < len(entries),
+            },
         )
 
     def _files(self, target, *, include_links=False):
@@ -627,15 +744,17 @@ class ToolExecutor:
                         offset = max(0, line.index(pattern) - 200)
                         excerpt = line[offset : offset + 800].rstrip()
                         row = f"{path.relative_to(self.root)}:{number}: {excerpt}"
-                        if size + len(row) > OUTPUT_CHARS or len(lines) >= 200:
+                        if size + len(row.encode()) > CAPTURE_BYTES:
                             return ToolResult(
                                 "success",
                                 "\n".join(lines) + "\n[truncated]",
-                                data={"truncated": True},
+                                data={"capture_truncated": True},
                             )
                         lines.append(row)
-                        size += len(row)
-        return ToolResult("success", "\n".join(lines) or "No matches", data={"truncated": False})
+                        size += len(row.encode())
+        return ToolResult(
+            "success", "\n".join(lines) or "No matches", data={"capture_truncated": False}
+        )
 
     def snapshot(self):
         return {
@@ -681,14 +800,7 @@ class ToolExecutor:
         if effect == "unknown":
             self.read_versions.clear()
 
-        def excerpt(text):
-            return (
-                text
-                if len(text) <= 10000
-                else text[:5000] + "\n[output truncated]\n" + text[-5000:]
-            )
-
-        content = f"exit_code: {details['exit_code']}\nstdout:\n{excerpt(details['stdout'])}\nstderr:\n{excerpt(details['stderr'])}"
+        content = f"exit_code: {details['exit_code']}\nstdout:\n{details['stdout']}\nstderr:\n{details['stderr']}"
         result = ToolResult(
             status,
             self.trace.redact(content),
@@ -700,10 +812,11 @@ class ToolExecutor:
                 else ("observation_unknown" if effect == "unknown" else "")
             ),
             {
+                "command": command,
                 "exit_code": details["exit_code"],
                 "stop_reason": details["stop_reason"],
-                "truncated": details["truncated"]
-                or any(len(details[key]) > 10000 for key in ("stdout", "stderr")),
+                "capture_truncated": details["capture_truncated"],
+                "capture": details["capture"],
                 "changed_paths": changes,
             },
         )

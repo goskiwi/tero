@@ -34,6 +34,7 @@ class Config:
     model: str = "gpt-5.6-luna"
     mode: str = "code"
     max_turns: int = 32
+    max_parallel_tools: int = 4
     runtime_seconds: float = 600
     request_seconds: float = 300
     tool_seconds: float = 120
@@ -51,6 +52,8 @@ class Config:
     repo_map_enabled: bool = True
 
     def __post_init__(self):
+        if not 1 <= self.max_parallel_tools <= 4:
+            raise ValueError("max_parallel_tools must be between 1 and 4")
         if self.mode not in {"ask", "code", "auto"}:
             raise ValueError("mode must be ask, code, or auto")
         for name in (

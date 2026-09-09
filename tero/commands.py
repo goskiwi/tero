@@ -23,7 +23,7 @@ SHELL_ENV = (
     "TEMP",
     "USER",
 )
-CAPTURE_BYTES = 64 * 1024
+CAPTURE_BYTES = 1024 * 1024
 
 
 def stop_process(process):
@@ -51,7 +51,8 @@ def run_command(command, root, timeout, budget):
         start_new_session=True,
     )
     output = {"stdout": bytearray(), "stderr": bytearray()}
-    truncated = False
+    totals = {"stdout": 0, "stderr": 0}
+    truncated = {"stdout": False, "stderr": False}
     reason = ""
     try:
         with selectors.DefaultSelector() as selector:
@@ -74,11 +75,12 @@ def run_command(command, root, timeout, budget):
                     if not chunk:
                         selector.unregister(key.fileobj)
                         continue
+                    totals[key.data] += len(chunk)
                     data = output[key.data]
                     data.extend(chunk)
                     if len(data) > CAPTURE_BYTES:
                         del data[CAPTURE_BYTES // 2 : -CAPTURE_BYTES // 2]
-                        truncated = True
+                        truncated[key.data] = True
             while process.poll() is None:
                 budget.check()
                 if time.monotonic() >= deadline:
@@ -98,14 +100,28 @@ def run_command(command, root, timeout, budget):
     except ProcessLookupError:
         pass
     result = {name: data.decode("utf-8", errors="replace") for name, data in output.items()}
-    if truncated:
+    if any(truncated.values()):
         result = {
-            name: text[: len(text) // 2] + "\n[output truncated]\n" + text[len(text) // 2 :]
+            name: (
+                text[: len(text) // 2]
+                + "\n[capture truncated: middle bytes not retained]\n"
+                + text[len(text) // 2 :]
+            )
+            if truncated[name]
+            else text
             for name, text in result.items()
         }
     return {
         **result,
         "exit_code": process.returncode,
         "stop_reason": reason,
-        "truncated": truncated,
+        "capture_truncated": any(truncated.values()),
+        "capture": {
+            name: {
+                "total_bytes": totals[name],
+                "retained_bytes": len(output[name]),
+                "truncated": truncated[name],
+            }
+            for name in output
+        },
     }

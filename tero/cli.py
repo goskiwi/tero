@@ -34,6 +34,7 @@ def parser():
     result.add_argument("--base-url")
     result.add_argument("--verify", default="", metavar="COMMAND")
     result.add_argument("--max-turns", type=int, default=32)
+    result.add_argument("--max-parallel-tools", type=int, default=4)
     result.add_argument("--max-seconds", type=float, default=600)
     result.add_argument("--context-tokens", type=int)
     result.add_argument("--output-tokens", type=int)
@@ -52,7 +53,7 @@ def approve(name, args):
     print(f"\nApprove {name}: {json.dumps(args, ensure_ascii=False)}")
     try:
         return input("[y/N] ").strip().lower() == "y"
-    except (EOFError, KeyboardInterrupt):
+    except EOFError:
         return False
 
 
@@ -115,6 +116,7 @@ def main(argv=None):
     options = {
         "mode": args.mode,
         "max_turns": args.max_turns,
+        "max_parallel_tools": args.max_parallel_tools,
         "runtime_seconds": args.max_seconds,
         "context_tokens": args.context_tokens,
         "output_tokens": args.output_tokens,

@@ -59,6 +59,7 @@ def check_completion(session, executor, store):
     session.verification = record
     store.save(session)
     result, files = executor.observe_command(config.verify_command, config.tool_seconds)
+    result = executor.finish("verify", result)
     passed = result.status == "success" and result.workspace_effect == "none" and files is not None
     record.update(status="passed" if passed else "failed", files=files if passed else None)
     session.history.append(

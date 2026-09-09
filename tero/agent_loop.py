@@ -5,12 +5,14 @@ import time
 import uuid
 from dataclasses import dataclass, field
 
+from .changes import build_task_diff
 from .completion import check_completion
 from .context import ContextTooLarge
 from .execution import Budget, ExecutionStopped
 from .provider import ContextOverflow, ProviderError, response_text
-from .session import new_loop_control, new_verification
+from .session import new_loop_control, new_turn, new_verification
 from .storage import Trace, now, save_json
+from .tool_batch import execute_batch
 from .tool_executor import ToolExecutor, ToolResult
 from .tools import TOOLS, tool_schemas
 
@@ -29,6 +31,7 @@ class RunResult:
     unconfirmed: list[dict] = field(default_factory=list)
     run_id: str = ""
     metrics: dict = field(default_factory=dict)
+    task_diff: dict = field(default_factory=dict)
 
 
 class AgentLoop:
@@ -50,7 +53,18 @@ class AgentLoop:
         tools = tool_schemas(config.mode, child=runtime.child)
         if session.run.get("status") == "completed":
             session.loop_control = new_loop_control()
+            session.mutations = []
         control = session.loop_control
+
+        def save_mutation(receipt):
+            for index, previous in enumerate(session.mutations):
+                if previous["id"] == receipt["id"]:
+                    session.mutations[index] = dict(receipt)
+                    break
+            else:
+                session.mutations.append(dict(receipt))
+            runtime.store.save(session)
+
         executor = ToolExecutor(
             runtime.root,
             config,
@@ -60,6 +74,8 @@ class AgentLoop:
             lambda args: self._delegate(args, budget),
             denied=control["denied"],
             save_denial=lambda: runtime.store.save(session),
+            artifacts=runtime.artifacts,
+            save_mutation=save_mutation,
         )
         started = time.monotonic()
         memories, memory_changes = [], []
@@ -129,41 +145,40 @@ class AgentLoop:
                     continue
                 overflow_retried = False
                 session.observed = sent_end
-                entry = {"kind": "turn", "items": output, "results": {}}
+                entry = new_turn(output)
                 session.history.append(entry)
                 # A call is durable BEFORE any external operation can begin.
                 runtime.store.save(session)
                 calls = [item for item in output if item.get("type") == "function_call"]
                 if calls:
                     valid_call = False
-                    for call in calls:
-                        arguments = call["arguments"]
-                        if reason:
-                            result = ToolResult(
-                                "rejected",
-                                "Not started: repeated failure limit reached.",
-                                error="loop_stopped",
-                            )
-                        else:
-                            budget.check()
-                            try:
-                                arguments = json.loads(call["arguments"])
-                            except (ValueError, KeyError, TypeError):
-                                result = ToolResult(
-                                    "rejected",
-                                    "Tool arguments must be a JSON object",
-                                    error="invalid_arguments",
-                                )
-                            else:
-                                result = executor.execute(call["name"], arguments)
+                    entry_index = len(session.history) - 1
+
+                    def start(call, entry=entry, entry_index=entry_index):
+                        entry["phases"][call["call_id"]] = "running"
+                        executor.operation = {"entry": entry_index, "call_id": call["call_id"]}
+                        runtime.store.save(session)
+
+                    for call, result in execute_batch(
+                        executor,
+                        calls,
+                        start,
+                        lambda: bool(reason),  # noqa: B023 - consumed synchronously before next loop iteration
+                    ):
+                        if result.error != "loop_stopped":
                             executed += 1
                             valid_call |= result.error not in {"invalid_arguments", "unknown_tool"}
-                            reason = self._track_failure(
+                            try:
+                                arguments = json.loads(call["arguments"])
+                            except (ValueError, TypeError):
+                                arguments = call["arguments"]
+                            reason = reason or self._track_failure(
                                 control, executor, call["name"], arguments, result
                             )
                         saved_result = result.to_dict()
                         entry["results"][call["call_id"]] = saved_result
-                        session.observe_result(len(session.history) - 1, call, saved_result)
+                        entry["phases"][call["call_id"]] = "finished"
+                        session.observe_result(entry_index, call, saved_result)
                         session.run["tools"] = executed
                         runtime.store.save(session)
                     control["invalid_outputs"] = 0 if valid_call else control["invalid_outputs"] + 1
@@ -238,6 +253,7 @@ class AgentLoop:
                 ended_at=now(),
             )
             runtime.store.save(session)
+        task_diff = build_task_diff(session, runtime.artifacts, budget)
         if status == "completed" and config.memory_enabled and not runtime.child:
             try:
                 budget.check()
@@ -275,6 +291,7 @@ class AgentLoop:
                 "seconds": round(time.monotonic() - started, 3),
                 "scope": "this run, including summary and memory requests; excludes child runs",
             },
+            task_diff,
         )
         save_json(
             trace.path.with_name("report.json"),

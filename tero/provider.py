@@ -1,6 +1,7 @@
 """Stateless native Responses requests; task and auxiliary calls share transport."""
 
 import json
+import socket
 import threading
 import time
 
@@ -67,7 +68,7 @@ class ResponsesClient:
             "input": items,
             "tools": tools,
             "tool_choice": "auto" if tools else "none",
-            "parallel_tool_calls": False,
+            "parallel_tool_calls": True,
             "store": False,
             "stream": True,
             "max_output_tokens": output_tokens or config.output_tokens,
@@ -82,13 +83,37 @@ class ResponsesClient:
         expired = threading.Event()
         client = httpx.Client(timeout=httpx.Timeout(duration), follow_redirects=False)
 
-        def expire():
-            expired.set()
-            client.close()
+        finished = threading.Event()
+        transports = []
 
-        timer = threading.Timer(duration, expire)
-        timer.daemon = True
-        timer.start()
+        def shutdown():
+            for transport in transports:
+                try:
+                    transport.shutdown(socket.SHUT_RDWR)
+                except OSError:
+                    pass
+
+        def transport_event(name, info):
+            if name.endswith(("connect_tcp.complete", "start_tls.complete")):
+                stream = info.get("return_value")
+                transport = stream.get_extra_info("socket") if stream is not None else None
+                if transport is not None:
+                    transports.append(transport)
+                    if budget.cancelled.is_set() or expired.is_set():
+                        shutdown()
+
+        def watch():
+            while not finished.wait(0.02):
+                if budget.cancelled.is_set():
+                    shutdown()
+                    return
+                if time.monotonic() - started >= duration:
+                    expired.set()
+                    shutdown()
+                    return
+
+        watcher = threading.Thread(target=watch, daemon=True)
+        watcher.start()
         try:
             self.trace.record("model_requested", purpose=purpose, model=config.model)
             with client.stream(
@@ -100,6 +125,7 @@ class ResponsesClient:
                     "User-Agent": "tero/0.2",
                 },
                 json=payload,
+                extensions={"trace": transport_event},
             ) as response:
                 if response.status_code >= 400:
                     body = self._read_bounded(response, budget).decode(errors="replace")
@@ -174,7 +200,8 @@ class ResponsesClient:
                 else "transport_error",
             ) from exc
         finally:
-            timer.cancel()
+            finished.set()
+            watcher.join(timeout=0.1)
             client.close()
 
     @staticmethod
@@ -242,6 +269,7 @@ class ResponsesClient:
                         and details.get("reason") == "max_output_tokens"
                         else "provider_error",
                     )
+        budget.check()
         raise ProviderError("Stream ended before response.completed; no tools were executed")
 
     def summarize(self, instructions, value, budget, *, output_tokens):

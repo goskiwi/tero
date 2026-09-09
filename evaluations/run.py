@@ -1,3 +1,5 @@
+from tero.session import new_turn
+
 """Explicit opt-in model evaluation. Creates fresh temporary workspaces; never touches a supplied repo."""
 
 import argparse
@@ -65,9 +67,8 @@ def run_case(name, config, *, repo_map=True):
     if name == "resume":
         runtime.session.user("Inspect pricing")
         runtime.session.history.append(
-            {
-                "kind": "turn",
-                "items": [
+            new_turn(
+                [
                     {
                         "type": "function_call",
                         "name": "write_file",
@@ -77,8 +78,8 @@ def run_case(name, config, *, repo_map=True):
                         ),
                     }
                 ],
-                "results": {},
-            }
+                {},
+            )
         )
         runtime.store.save(runtime.session)
         runtime = Tero(root, config, session_id=runtime.session.id)
