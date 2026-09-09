@@ -12,11 +12,11 @@ from tero.execution import Budget, ExecutionStopped
 from tero.storage import atomic_write, save_json
 
 
-def run_coding(workspace, request, config, *, client_factory=None):
+def run_coding(workspace, request, config, *, client_factory=None, workspace_root=None):
     if not config.verify_command or config.mode == "ask":
         raise ValueError("Coding delivery requires --verify and code/auto mode")
     options = {"client_factory": client_factory} if client_factory is not None else {}
-    runtime = Tero(workspace, config, approve=approve, display=display, **options)
+    runtime = Tero(workspace, config, workspace_root=workspace_root, approve=approve, display=display, **options)
     budget = Budget(config.runtime_seconds)
     result = runtime.ask(request, budget=budget)
     directory = runtime.root / ".tero" / "runs" / result.run_id
@@ -71,13 +71,15 @@ def main(argv=None):
     )
     parser.add_argument("request")
     parser.add_argument("--cwd", type=Path, required=True)
+    parser.add_argument("--workspace-root", type=Path)
     parser.add_argument("--verify", required=True)
     parser.add_argument("--mode", choices=("code", "auto"), default="code")
     parser.add_argument("--config-dir", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args(argv)
     load_env(args.config_dir)
     result, report = run_coding(
-        args.cwd, args.request, Config.from_env(mode=args.mode, verify_command=args.verify)
+        args.cwd, args.request, Config.from_env(mode=args.mode, verify_command=args.verify),
+        workspace_root=args.workspace_root
     )
     print(result.answer)
     print(f"Delivery: {report}")

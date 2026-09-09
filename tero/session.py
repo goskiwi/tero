@@ -13,7 +13,7 @@ from .tools import READ_TOOLS
 
 
 def new_verification():
-    return {"status": "not_configured", "command": "", "call_id": "", "files": None}
+    return {"status": "not_run", "command": "", "call_id": "", "files": None}
 
 
 def new_loop_control():
@@ -23,6 +23,7 @@ def new_loop_control():
         "completion_reason": "",
         "completion_paths": [],
         "last_failure": None,
+        "recent_failures": [],
         "denied": [],
     }
 
@@ -58,7 +59,6 @@ class Session:
     unconfirmed: list[dict] = field(default_factory=list)
     mutations: list[dict] = field(default_factory=list)
     created_at: str = field(default_factory=now)
-    format: str = "tero-session-8"
 
     @classmethod
     def create(cls, workspace):
@@ -189,10 +189,8 @@ class SessionStore:
         if path.resolve() != path.absolute():
             raise ValueError("Session path must not be redirected")
         value = json.loads(path.read_text())
-        if value.get("format") != "tero-session-8":
-            raise ValueError(
-                "Unsupported session format. Old sessions are not migrated; create a new session."
-            )
+        if not isinstance(value, dict):
+            raise ValueError("Session must be an object")
         if (
             not {
                 "verification_required",
@@ -207,6 +205,19 @@ class SessionStore:
         ):
             raise ValueError("Missing completion state in session")
         session = Session(**value)
+        if session.id != session_id:
+            raise ValueError("Session identity does not match requested ID")
+        if type(session.request_start) is not int or (
+            session.history and not 0 <= session.request_start < len(session.history)
+        ) or (not session.history and session.request_start != 0):
+            raise ValueError("Invalid current request position")
+        if session.history:
+            request = session.history[session.request_start]
+            if request.get("kind") != "message" or not any(
+                item.get("role") == "user" for item in request.get("items", [])
+            ):
+                raise ValueError("Current request must identify a user message")
+
         control = session.loop_control
         if (
             not isinstance(control, dict)
@@ -240,6 +251,11 @@ class SessionStore:
             )
         ):
             raise ValueError("Invalid loop control state")
+        if not isinstance(control["recent_failures"], list) or len(control["recent_failures"]) > 8:
+            raise ValueError("Invalid recent failure history")
+        for failure in control["recent_failures"]:
+            if not isinstance(failure, dict) or set(failure) != {"key", "count"} or not isinstance(failure["key"], dict) or type(failure["count"]) is not int or failure["count"] < 1:
+                raise ValueError("Invalid recent failure record")
         if not isinstance(session.verification_required, bool) or not isinstance(
             session.unconfirmed, list
         ):
@@ -249,7 +265,7 @@ class SessionStore:
         ):
             raise ValueError("Invalid verification record")
         if session.verification["status"] not in {
-            "not_configured",
+            "not_run",
             "running",
             "passed",
             "failed",

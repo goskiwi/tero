@@ -141,27 +141,15 @@ def test_interrupted_verifier_requires_review_after_load(tmp_path):
     assert loaded.recover() == 0
 
 
-@pytest.mark.parametrize(
-    "old_format",
-    [
-        "pico-session-2",
-        "pico-session-3",
-        "pico-session-4",
-        "pico-session-5",
-        "pico-session-6",
-        "pico-session-7",
-        "tracecode-session-7",
-        "tero-session-7",
-    ],
-)
-def test_old_session_is_rejected_without_migration(tmp_path, old_format):
+@pytest.mark.parametrize("status", ["unknown_status", "not_configured"])
+def test_invalid_verification_status_is_rejected(tmp_path, status):
     session, _executor, store = setup(tmp_path)
     store.save(session)
     path = store.path(session.id)
     value = json.loads(path.read_text())
-    value["format"] = old_format
+    value["verification"]["status"] = status
     path.write_text(json.dumps(value))
-    with pytest.raises(ValueError, match="not migrated"):
+    with pytest.raises(ValueError, match="Invalid verification status"):
         store.load(session.id, tmp_path)
 
 

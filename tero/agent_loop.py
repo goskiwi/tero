@@ -10,7 +10,7 @@ from .completion import check_completion
 from .context import ContextTooLarge
 from .execution import Budget, ExecutionStopped
 from .provider import ContextOverflow, ProviderError, response_text
-from .session import new_loop_control, new_turn, new_verification
+from .session import new_loop_control, new_turn
 from .storage import Trace, now, save_json
 from .tool_batch import execute_batch
 from .tool_executor import ToolExecutor, ToolResult
@@ -50,7 +50,7 @@ class AgentLoop:
             runtime.display,
         )
         client = runtime.client_factory(config, trace)
-        tools = tool_schemas(config.mode, child=runtime.child)
+        tools = tool_schemas(config.mode, child=runtime.child, allowed_tools=config.allowed_tools)
         if session.run.get("status") == "completed":
             session.loop_control = new_loop_control()
             session.mutations = []
@@ -72,6 +72,7 @@ class AgentLoop:
             trace,
             runtime.approve,
             lambda args: self._delegate(args, budget),
+            child=runtime.child,
             denied=control["denied"],
             save_denial=lambda: runtime.store.save(session),
             artifacts=runtime.artifacts,
@@ -95,7 +96,9 @@ class AgentLoop:
                     "Read current files before editing; no old command has been replayed.",
                 }
             )
-        session.verification = new_verification()
+        # Retain the last observation for continuation; completion always verifies afresh.
+        if session.verification["status"] == "passed":
+            session.verification.update(status="stale", files=None)
         session.request_start = len(session.history)
         session.user(runtime.redact(message))
         session.run = {
@@ -326,41 +329,33 @@ class AgentLoop:
             args = arguments
         if isinstance(args, dict) and result.data.get("path"):
             args = {**args, "path": result.data["path"]}
-        previous = control["last_failure"]
-        failed_args = previous["key"].get("arguments") if previous else None
-        failed_path = failed_args.get("path") if isinstance(failed_args, dict) else None
-        if failed_path and failed_path in paths:
-            changed = result.workspace_effect == "changed"
-            reread = (
-                name == "read_file"
-                and result.status == "success"
-                and (
-                    previous["key"]["error"]
-                    in {"read_required", "revision_conflict", "missing_path"}
-                    or result.data.get("revision") != previous["key"].get("actual_revision")
-                )
+        history = control["recent_failures"]
+        retained = []
+        for previous in history:
+            failed = previous["key"]
+            failed_path = failed.get("arguments", {}).get("path") if isinstance(failed.get("arguments"), dict) else None
+            related = failed_path and failed_path in paths
+            changed = related and result.workspace_effect == "changed"
+            reread = related and name == "read_file" and result.status == "success" and (
+                failed["error"] in {"read_required", "revision_conflict", "missing_path"}
+                or result.data.get("revision") != failed.get("actual_revision")
             )
-            if changed or reread:
-                control["last_failure"] = None
+            succeeded = result.status == "success" and failed["tool"] == name and failed["arguments"] == args
+            if not (changed or reread or succeeded):
+                retained.append(previous)
+        control["recent_failures"] = retained
+        control["last_failure"] = retained[-1] if retained else None
         if result.status == "success":
-            if (
-                previous
-                and previous["key"]["tool"] == name
-                and previous["key"]["arguments"] == args
-            ):
-                control["last_failure"] = None
             return ""
         path = result.data.get("path")
-        key = {
-            "tool": name,
-            "arguments": args,
-            "error": result.error,
-            "actual_revision": result.data.get("actual_revision", result.data.get("revision")),
-            "read_revision": executor.read_versions.get(path) if path else None,
-        }
-        previous = control["last_failure"]
-        count = previous["count"] + 1 if previous and previous["key"] == key else 1
-        control["last_failure"] = {"key": key, "count": count}
+        key = {"tool": name, "arguments": args, "error": result.error,
+               "actual_revision": result.data.get("actual_revision", result.data.get("revision")),
+               "read_revision": executor.read_versions.get(path) if path else None}
+        previous = next((entry for entry in retained if entry["key"] == key), None)
+        count = previous["count"] + 1 if previous else 1
+        entry = {"key": key, "count": count}
+        control["recent_failures"] = [item for item in retained if item["key"] != key][-7:] + [entry]
+        control["last_failure"] = entry
         if count >= 2:
             result.content += (
                 f"\nRepeated failure ({count}): change the failed arguments or satisfy "

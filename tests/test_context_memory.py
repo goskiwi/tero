@@ -118,6 +118,46 @@ def test_markdown_without_exact_headings_preserves_raw_regions(tmp_path):
     assert client.requests[0][1]["output_tokens"] > manager.config.summary_tokens
 
 
+def test_compaction_updates_prior_summary_with_current_request_and_reported_facts(tmp_path):
+    from tero.context import SUMMARY_UPDATE
+
+    session, manager, client, store = prepared(tmp_path)
+    session.summary = "Next Steps: refund_integration remains unfinished."
+    session.covered = 1
+    session.history[1] = {
+        "kind": "feedback",
+        "text": "unit_test=passed; integration_test=blocked_database",
+    }
+    session.request_start = len(session.history)
+    session.user("Report the earlier test outcomes and unfinished work exactly.")
+    before = json.dumps(session.history)
+    items = prepare(session, manager, client, store)
+    prompt, source = client.requests[0][0][:2]
+    assert SUMMARY_UPDATE in prompt
+    assert "refund_integration" in source["previous_summary"]
+    assert source["current_request"] == manager.unit(session.history[session.request_start])
+    assert "unit_test=passed; integration_test=blocked_database" in source["transcript"]
+    assert source["current_request"][0] in items
+    assert json.dumps(session.history) == before
+
+
+def test_wrong_summary_cannot_replace_execution_record_after_compaction_and_resume(tmp_path):
+    session, manager, client, store = prepared(tmp_path, "Everything passed. No uncertainty.")
+    session.verification.update(status="failed", command="pytest", call_id="verify-1")
+    session.add_unconfirmed("shell-1", "run_shell")
+    before = json.dumps((session.verification, session.unconfirmed))
+    items = prepare(session, manager, client, store)
+    assert session.covered > 0
+    assert json.dumps((session.verification, session.unconfirmed)) == before
+    resumed = store.load(session.id, tmp_path)
+    assert manager.items(resumed, []) == items
+    record = items[-1]["content"]
+    assert '"status": "failed"' in record
+    assert "shell-1" in record
+    resumed.verification.update(status="stale")
+    assert '"status": "stale"' in manager.items(resumed, [])[-1]["content"]
+
+
 def test_failed_early_summary_continues_and_suppresses_same_source_after_resume(tmp_path):
     session, manager, client, store = prepared(tmp_path, "")
     before = manager.items(session, [])

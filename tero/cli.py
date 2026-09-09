@@ -8,6 +8,8 @@ from pathlib import Path
 from .config import Config, load_env
 from .runtime import Tero
 from .session import SessionStore
+from .workspace import Workspace
+from .tools import TOOLS
 
 
 def parser():
@@ -20,6 +22,8 @@ def parser():
     result.add_argument("prompt", nargs="?")
     result.add_argument("--cwd", type=Path, default=Path.cwd())
     result.add_argument("--config-dir", type=Path, default=Path(__file__).resolve().parent.parent)
+    result.add_argument("--workspace-root", type=Path)
+    result.add_argument("--allow-tool", action="append", choices=tuple(TOOLS))
     result.add_argument("--mode", choices=("ask", "code", "auto"), default="code")
     result.add_argument("--resume", metavar="SESSION_ID_OR_LATEST")
     result.add_argument(
@@ -114,6 +118,7 @@ def main(argv=None):
         arguments.error("--compact requires --resume")
     load_env(args.config_dir.resolve())
     options = {
+        "allowed_tools": tuple(args.allow_tool) if args.allow_tool is not None else None,
         "mode": args.mode,
         "max_turns": args.max_turns,
         "max_parallel_tools": args.max_parallel_tools,
@@ -136,12 +141,13 @@ def main(argv=None):
         )
     session_id = args.resume
     if session_id == "latest":
-        session_id = SessionStore(args.cwd.resolve() / ".tero" / "sessions").latest()
+        session_id = SessionStore(Workspace(args.cwd, root=args.workspace_root).root / ".tero" / "sessions").latest()
         if session_id is None:
             raise SystemExit("No saved session in this workspace")
     runtime = Tero(
         args.cwd,
         config,
+        workspace_root=args.workspace_root,
         session_id=session_id,
         approve=approve,
         display=display if args.trace else None,

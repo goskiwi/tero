@@ -1,5 +1,9 @@
 """One execution boundary: validate, approve, operate, and describe observed effects."""
 
+import codecs
+import shlex
+import shutil
+import subprocess
 import difflib
 import hashlib
 import json
@@ -15,7 +19,8 @@ from .artifacts import CAPTURE_BYTES, PREVIEW_BYTES, ArtifactStore
 from .commands import run_command
 from .execution import ExecutionStopped
 from .storage import atomic_write
-from .tools import READ_TOOLS, TOOLS
+from .tools import READ_TOOLS, TOOLS, effective_tools
+from .workspace import git_state
 
 IGNORED = {".git", ".tero", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache"}
 OUTPUT_CHARS = 24000
@@ -248,6 +253,7 @@ class ToolExecutor:
         approve=None,
         delegate=None,
         *,
+        child=False,
         denied=None,
         save_denial=None,
         artifacts=None,
@@ -255,6 +261,7 @@ class ToolExecutor:
     ):
         self.root = Path(root).resolve()
         self.config, self.budget, self.trace = config, budget, trace
+        self.available_tools = effective_tools(config.mode, child=child, allowed_tools=config.allowed_tools)
         self.approve, self.delegate = approve, delegate
         self.read_versions = {}
         self.denied = denied if denied is not None else []
@@ -351,9 +358,9 @@ class ToolExecutor:
     def admit(self, name, arguments):
         if name not in TOOLS:
             return ToolResult("rejected", "Unknown tool", error="unknown_tool")
-        if self.config.mode == "ask" and name not in READ_TOOLS:
+        if name not in self.available_tools:
             return ToolResult(
-                "rejected", "Tool is unavailable in read-only mode", error="permission_denied"
+                "rejected", "Tool is unavailable under the current mode, role or whitelist", error="permission_denied"
             )
         target = None
         try:
@@ -401,7 +408,7 @@ class ToolExecutor:
                     data={"path": target.relative_to(self.root).as_posix()} if target else {},
                 )
             if mutating and self.config.mode != "auto":
-                if self.approve is None or not self.approve(name, dict(args)):
+                if self.approve is None or not self.approve(name, {**args, "resolved_target": str(target) if target else str(self.root), "operation": name}):
                     self.denied.append(approval_key)
                     if self.save_denial is not None:
                         self.save_denial()
@@ -509,26 +516,32 @@ class ToolExecutor:
     def _read(self, target, args):
         if args["end"] < args["start"] or args["end"] - args["start"] >= 2000:
             raise ToolError("invalid_range", "Choose a valid range of at most 2000 lines")
-        raw = self._bytes(target)
-        revision = content_revision(raw)
-        text = raw.decode("utf-8")
-        logical = target.relative_to(self.root).as_posix()
-        lines = text.splitlines()
-        selected = "\n".join(
-            f"{i}: {line}" for i, line in enumerate(lines, 1) if args["start"] <= i <= args["end"]
-        )
-        return ToolResult(
-            "success",
-            selected,
-            data={
-                "path": logical,
-                "revision": revision,
-                "start": args["start"],
-                "end": min(args["end"], len(lines)),
-                "total_lines": len(lines),
-                "capture_truncated": False,
-            },
-        )
+        self._require_target(target)
+        digest = hashlib.sha256()
+        decoder = codecs.getincrementaldecoder("utf-8")()
+        output = bytearray()
+        line_number, total, line_start, truncated = 1, 0, True, False
+        with target.open("rb") as handle:
+            while chunk := handle.readline(64 * 1024):
+                self.budget.check()
+                digest.update(chunk)
+                decoder.decode(chunk)
+                total = line_number
+                if args["start"] <= line_number <= args["end"]:
+                    piece = (f"{line_number}: ".encode() if line_start else b"") + chunk
+                    remaining = CAPTURE_BYTES - len(output)
+                    output.extend(piece[:remaining])
+                    truncated |= len(piece) > remaining
+                line_start = chunk.endswith(b"\n")
+                if line_start:
+                    line_number += 1
+        decoder.decode(b"", final=True)
+        return ToolResult("success", output.decode("utf-8", errors="replace").rstrip("\n"), data={
+            "path": target.relative_to(self.root).as_posix(),
+            "revision": "sha256:" + digest.hexdigest(),
+            "start": args["start"], "end": min(args["end"], total),
+            "total_lines": total, "capture_truncated": truncated,
+        })
 
     def _edit(self, target, args):
         logical = target.relative_to(self.root).as_posix()
@@ -735,29 +748,27 @@ class ToolExecutor:
                 yield path
 
     def _search(self, target, pattern):
-        lines, size = [], 0
-        for path in self._files(target):
-            with path.open("r", encoding="utf-8", errors="replace") as handle:
-                for number, line in enumerate(handle, 1):
-                    self.budget.check()
-                    if pattern in line:
-                        offset = max(0, line.index(pattern) - 200)
-                        excerpt = line[offset : offset + 800].rstrip()
-                        row = f"{path.relative_to(self.root)}:{number}: {excerpt}"
-                        if size + len(row.encode()) > CAPTURE_BYTES:
-                            return ToolResult(
-                                "success",
-                                "\n".join(lines) + "\n[truncated]",
-                                data={"capture_truncated": True},
-                            )
-                        lines.append(row)
-                        size += len(row.encode())
-        return ToolResult(
-            "success", "\n".join(lines) or "No matches", data={"capture_truncated": False}
-        )
+        if shutil.which("rg") is None:
+            raise ToolError("search_unavailable", "Install ripgrep (rg) to use search")
+        args = ["rg", "--fixed-strings", "--line-number", "--with-filename", "--color=never",
+                "--no-heading", "--max-count=201", "--max-columns=1000", "--max-columns-preview"]
+        for name in sorted(IGNORED):
+            args.extend(["--glob", "!" + name + "/**", "--glob", "!" + name])
+        args.extend(["--", pattern, target.relative_to(self.root).as_posix()])
+        details = run_command(shlex.join(args), self.root, self.config.tool_seconds, self.budget)
+        if details["stop_reason"]:
+            raise ToolError(details["stop_reason"], details["stderr"] or "Search interrupted")
+        if details["exit_code"] not in (0, 1):
+            raise ToolError("search_failed", details["stderr"] or "ripgrep failed")
+        lines = details["stdout"].splitlines()
+        limited = len(lines) > 200 or details["capture_truncated"]
+        content = "\n".join(lines[:200]) or "No matches"
+        if limited:
+            content += "\n[Search output truncated; narrow path or pattern.]"
+        return ToolResult("success", content, data={"capture_truncated": limited})
 
     def snapshot(self):
-        return {
+        state = {
             path.relative_to(self.root).as_posix(): (
                 "symlink:" + os.readlink(path)
                 if path.is_symlink()
@@ -765,6 +776,13 @@ class ToolExecutor:
             )
             for path in self._files(self.root, include_links=True)
         }
+        try:
+            state.update(git_state(self.root, self.budget))
+        except FileNotFoundError:
+            pass  # Git is optional; file observations still apply.
+        except subprocess.SubprocessError as exc:
+            raise OSError("Git observation failed") from exc
+        return state
 
     def observe_command(self, command, timeout):
         """Return the command result and its final file states for completion checks."""
@@ -817,7 +835,8 @@ class ToolExecutor:
                 "stop_reason": details["stop_reason"],
                 "capture_truncated": details["capture_truncated"],
                 "capture": details["capture"],
-                "changed_paths": changes,
+                "changed_paths": [path for path in changes if not path.startswith(".git/")],
+                "git_changed": any(path.startswith(".git/") for path in changes),
             },
         )
         return result, after

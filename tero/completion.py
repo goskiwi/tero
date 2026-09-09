@@ -2,7 +2,6 @@
 
 import json
 
-from .session import new_verification
 from .tool_executor import ToolResult
 
 
@@ -40,11 +39,10 @@ def check_completion(session, executor, store):
             error="verification_required",
         )
     if not config.verify_command or config.mode == "ask":
-        session.verification = new_verification()
         return ToolResult("success", "Task ended without configured verification")
     if config.mode != "auto" and (
         executor.approve is None
-        or not executor.approve("verify", {"command": config.verify_command})
+        or not executor.approve("verify", {"command": config.verify_command, "resolved_target": str(executor.root), "operation": "verify"})
     ):
         return ToolResult("rejected", "Verification was not approved", error="verification_denied")
 
@@ -115,6 +113,7 @@ def check_completion(session, executor, store):
             "error",
             "Files changed after verification; inspect and verify again: " + ", ".join(changed),
             error="verification_stale",
-            data={"changed_paths": changed},
+            data={"changed_paths": [path for path in changed if not path.startswith(".git/")],
+                  "git_changed": any(path.startswith(".git/") for path in changed)},
         )
     return ToolResult("success", "Verification passed for the current observed workspace")

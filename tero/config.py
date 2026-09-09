@@ -47,6 +47,7 @@ class Config:
     memory_tokens: int = 2000
     repo_map_tokens: int = 1200
     verify_command: str = ""
+    allowed_tools: tuple[str, ...] | None = None
     allowed_write_paths: tuple[str, ...] | None = None
     memory_enabled: bool = True
     repo_map_enabled: bool = True
@@ -78,6 +79,22 @@ class Config:
         if self.output_tokens >= self.context_tokens:
             raise ValueError("Output reserve must be smaller than the context window")
         object.__setattr__(self, "verify_command", self.verify_command.strip())
+        from .tools import TOOLS
+        if self.allowed_tools is not None:
+            if any(name not in TOOLS for name in self.allowed_tools):
+                raise ValueError("Unknown tool in allowed_tools")
+            object.__setattr__(self, "allowed_tools", tuple(dict.fromkeys(self.allowed_tools)))
+        if self.allowed_write_paths is not None:
+            paths = []
+            for value in self.allowed_write_paths:
+                path = Path(value)
+                if path.is_absolute() or ".." in path.parts or not path.parts:
+                    raise ValueError("Write scope requires workspace-relative file paths")
+                if any(part in {".git", ".tero"} for part in path.parts):
+                    raise ValueError("Write scope cannot include internal state")
+                paths.append(path.as_posix())
+            object.__setattr__(self, "allowed_write_paths", tuple(dict.fromkeys(paths)))
+
 
     @classmethod
     def from_env(cls, **options):

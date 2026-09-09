@@ -16,7 +16,7 @@
 
 ## 安装与启动
 
-需要 Python 3.11+；命令工具的进程组终止支持 macOS/Linux。
+需要 Python 3.11+ 和 ripgrep（`rg`）；命令工具的进程组终止支持 macOS/Linux。Git 可选，缺失时仅提供文件系统工作区能力。
 
 ```bash
 uv sync --extra dev
@@ -26,7 +26,7 @@ uv run tero --cwd /path/to/trusted/repo --mode auto \
 uv run tero --cwd /path/to/trusted/repo --resume latest "继续上次任务"
 ```
 
-`--verify` 是你指定的验证命令，未配置时报告 `not_configured`，不宣称已经验证。
+`--verify` 是你指定的验证命令。配置与执行记录分别展示；尚无验证执行时状态为 `not_run`，不宣称已经验证。历史结果保留其原命令，不能代替本轮验证。
 上面列的是使用方式，不代表已经执行过这些验证。
 
 配置使用 `.env` / `.env.local` 或环境变量：
@@ -88,6 +88,8 @@ TERO_OUTPUT_TOKENS=32000
 - `--mode ask`：只有读取工具，不执行验证命令。
 - `--mode code`：文件修改、Shell、验证执行前批准，默认模式。
 - `--mode auto`：用户明确允许自动执行操作。
+- `--workspace-root path`：显式固定工作区根；未指定时从启动目录发现 Git 根，非 Git 目录使用启动目录。
+- `--allow-tool name`：可重复指定工具白名单，与模式和子代理权限取交集。
 - `--allow-write path`：限定可修改文件；通用 Shell 在这种配置下禁用，因为 cwd 不能限制 Shell 写入路径。
 - `--max-turns`、`--max-seconds`：本次请求的预算。
 - `--context-tokens`、`--output-tokens`：实际后端窗口与输出预留。
@@ -109,7 +111,7 @@ Runtime 记录实际成功的观察调用；这只是检查证据，不判断其
 `/retry-denied` 或 `--resume ID --retry-denied` 允许用户显式重新申请已拒绝的审批，
 不会自动批准或执行操作。重复失败记录随未完成任务恢复；新建 Session 或完成后开始新任务才重新计数。
 
-Session 格式为 `tero-session-8`，直接拒绝旧格式，不提供迁移或兼容接口。
+Session 不使用版本标签；加载时校验实际字段、执行状态和工作区归属，不提供迁移分支。
 
 `/reset` 新建 Session，长期记忆保留。`/forget` 删除长期记忆，历史记录不同时删除。
 

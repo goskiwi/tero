@@ -85,8 +85,17 @@ TOOLS = {
 READ_TOOLS = frozenset({"list_files", "read_file", "search", "read_artifact"})
 
 
-def tool_schemas(mode, *, child=False):
-    names = READ_TOOLS if mode == "ask" else TOOLS
+def effective_tools(mode, *, child=False, allowed_tools=None):
+    names = set(READ_TOOLS if mode == "ask" else TOOLS)
+    if child:
+        names &= READ_TOOLS
+    if allowed_tools is not None:
+        names &= set(allowed_tools)
+    return frozenset(names)
+
+
+def tool_schemas(mode, *, child=False, allowed_tools=None):
+    names = effective_tools(mode, child=child, allowed_tools=allowed_tools)
     result = []
     for name, (args, description) in TOOLS.items():
         if name not in names or (child and name == "delegate"):
