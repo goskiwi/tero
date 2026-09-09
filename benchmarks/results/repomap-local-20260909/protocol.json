@@ -1,0 +1,140 @@
+{
+  "source": "/Users/yankai/Documents/Course/Agents/coding agent/Tero/.tero/experiments/repomap-ab-20260909/source",
+  "cases": [
+    [
+      "compaction",
+      "Trace how older conversation is compressed while preserving current work.",
+      [
+        [
+          "select",
+          "Select the eligible history boundary and commit the new summary.",
+          "tero/context.py",
+          "prepare"
+        ],
+        [
+          "request",
+          "Send the dedicated summary request to the provider.",
+          "tero/provider.py",
+          "summarize"
+        ],
+        [
+          "loop",
+          "Record which history the main model has actually observed.",
+          "tero/agent_loop.py",
+          "run"
+        ]
+      ]
+    ],
+    [
+      "recovery",
+      "Trace recovery after a file replacement succeeds but the tool result was not saved.",
+      [
+        [
+          "close",
+          "Close pending interrupted calls without automatically replaying them.",
+          "tero/session.py",
+          "recover"
+        ],
+        [
+          "observe",
+          "Compare current file contents with the saved mutation receipt.",
+          "tero/changes.py",
+          "observe_interrupted_file"
+        ]
+      ]
+    ],
+    [
+      "verification",
+      "Trace how a premature final answer is checked and failed verification returns to repair.",
+      [
+        [
+          "verify",
+          "Execute configured verification and recheck the tested file state.",
+          "tero/completion.py",
+          "check_completion"
+        ],
+        [
+          "repair",
+          "Feed a blocked completion back into the main model loop.",
+          "tero/agent_loop.py",
+          "run"
+        ],
+        [
+          "observe",
+          "Observe workspace changes around command execution.",
+          "tero/tool_executor.py",
+          "observe_command"
+        ]
+      ]
+    ],
+    [
+      "parallel_reads",
+      "Trace how a model response containing multiple independent reads is executed.",
+      [
+        [
+          "schedule",
+          "Group consecutive reads and dispatch bounded parallel execution.",
+          "tero/tool_batch.py",
+          "execute_batch"
+        ],
+        [
+          "admit",
+          "Validate each call and enforce permissions before dispatch.",
+          "tero/tool_executor.py",
+          "admit"
+        ],
+        [
+          "save",
+          "Persist each call entering execution and save its results in the parent loop.",
+          "tero/agent_loop.py",
+          "run"
+        ]
+      ]
+    ],
+    [
+      "file_edit",
+      "Trace an exact text edit from original-file preservation to a final task diff.",
+      [
+        [
+          "publish",
+          "Save the preimage and mutation receipt before replacing the file.",
+          "tero/tool_executor.py",
+          "_publish"
+        ],
+        [
+          "diff",
+          "Build a task diff using the original preimage and current disk contents.",
+          "tero/changes.py",
+          "build_task_diff"
+        ]
+      ]
+    ],
+    [
+      "timeout",
+      "Trace cancellation and timeout of a running shell command.",
+      [
+        [
+          "deadline",
+          "Manage the shared deadline and cancellation flag.",
+          "tero/execution.py",
+          "check"
+        ],
+        [
+          "command",
+          "Observe deadline expiry while collecting process output.",
+          "tero/commands.py",
+          "run_command"
+        ],
+        [
+          "kill",
+          "Terminate the process group and reap the process.",
+          "tero/commands.py",
+          "stop_process"
+        ]
+      ]
+    ]
+  ],
+  "budget_tokens": 1200,
+  "method": "Same Tree-sitter symbol pool, lexical scorer, kind boost, diversity selection and rendering; lexical arm removes graph score. Top5 files are first five distinct files in rendered output, symbols must occur in actual output. No model calls. Seven warm query+render timings per case; build uses fresh object but uncontrolled OS cache. No tuning after results.",
+  "limitation": "One small Python repository; this compares lexical-only with full RepoMap, not grep or end-to-end Agent performance."
+}

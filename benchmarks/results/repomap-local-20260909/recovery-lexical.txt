@@ -1,0 +1,48 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/tool_executor.py
+  L42 method ToolResult.recovery — def recovery(self)
+  L34 class ToolResult — class ToolResult
+tero/tools.py
+  L88 function tool_schemas — def tool_schemas(mode, *, child=False)
+tero/storage.py
+  L40 class Trace — class Trace
+tero/changes.py
+  L74 function observe_interrupted_file — def observe_interrupted_file(session, entry_index, call)
+tero/session.py
+  L69 method Session.pending — def pending(self)
+tero/tool_executor.py
+  L716 function ToolExecutor._files.fail — def fail(error)
+tero/tool_batch.py
+  L11 function execute_batch — def execute_batch(executor, calls, on_start, stopped)
+tero/tool_executor.py
+  L47 method ToolResult.to_dict — def to_dict(self)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/agent_loop.py
+  L59 function AgentLoop.run.save_mutation — def save_mutation(receipt)
+tero/tool_executor.py
+  L711 method ToolExecutor._files — def _files(self, target, *, include_links=False)
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/context.py
+  L48 class ContextTooLarge — class ContextTooLarge(RuntimeError)
+tero/cli.py
+  L83 function show_result — def show_result(result, memory_enabled)
+tero/repo_map.py
+  L207 class ParsedFile — class ParsedFile
+tero/tool_executor.py
+  L242 method ToolExecutor.__init__ — def __init__( self, root, config, budget, trace, approve=None, delegate=None, *, denied=None, save_denial=None, artifacts=None, save_mutation=None, )
+tero/tools.py
+  L6 class Args — class Args(BaseModel)
+tero/agent_loop.py
+  L21 class RunResult — class RunResult
+tero/tool_executor.py
+  L613 method ToolExecutor._publish — def _publish(self, target, before, after, expected)
+tero/tools.py
+  L10 class ListArgs — class ListArgs(Args)
+tero/session.py
+  L122 method Session.observe_result — def observe_result(self, index, call, result)
+tero/repo_map.py
+  L557 method RepoMap._parse_file — def _parse_file(self, relative_path, fingerprint, *, check_active=lambda: None)
+tero/tool_executor.py
+  L307 method ToolExecutor.finish — def finish(self, name, result)

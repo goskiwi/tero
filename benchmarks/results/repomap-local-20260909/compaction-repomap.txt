@@ -1,0 +1,47 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/provider.py
+  L13 class ProviderError — class ProviderError(RuntimeError)
+  L32 method ResponsesClient.request — def request(self, instructions, items, tools, budget, **options)
+tero/cli.py
+  L99 function main — def main(argv=None)
+tero/provider.py
+  L50 method ResponsesClient._request_once — def _request_once( self, instructions, items, tools, budget, *, purpose="main", output_tokens=None, json_mode=False, reasoning_effort=None, )
+  L89 function ResponsesClient._request_once.shutdown — def shutdown()
+tero/storage.py
+  L40 class Trace — class Trace
+tero/execution.py
+  L16 method Budget.check — def check(self)
+tero/session.py
+  L178 method SessionStore.path — def path(self, session_id)
+tero/provider.py
+  L14 method ProviderError.__init__ — def __init__(self, message, *, code="provider_error")
+tero/agent_loop.py
+  L41 method AgentLoop.run — def run(self, message, *, budget=None)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/repo_map.py
+  L308 method RepoMapQuery._select_diverse — def _select_diverse(self, max_results)
+tero/provider.py
+  L105 function ResponsesClient._request_once.watch — def watch()
+tero/context.py
+  L185 method ContextManager.summary_source — def summary_source(self, entry)
+tero/execution.py
+  L22 method Budget.remaining — def remaining(self, limit=None)
+tero/session.py
+  L19 function new_loop_control — def new_loop_control()
+tero/cli.py
+  L83 function show_result — def show_result(result, memory_enabled)
+tero/provider.py
+  L96 function ResponsesClient._request_once.transport_event — def transport_event(name, info)
+tero/tool_executor.py
+  L34 class ToolResult — class ToolResult
+tero/provider.py
+  L23 class TransientProviderError — class TransientProviderError(ProviderError)
+tero/context.py
+  L216 method ContextManager.prepare — def prepare( self, session, instructions, tools, memories, client, store, budget, *, force=False, manual=False, )
+tero/session.py
+  L30 function new_turn — def new_turn(items, results=None)
+tero/tool_batch.py
+  L11 function execute_batch — def execute_batch(executor, calls, on_start, stopped)

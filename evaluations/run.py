@@ -63,7 +63,7 @@ def run_case(name, config, *, repo_map=True):
                 drifted = True
             return super().request(*args, **kwargs)
 
-    runtime = Tero(root, config, approve=lambda *args: False, client_factory=DriftClient)
+    runtime = Tero(root, config, workspace_root=root, approve=lambda *args: False, client_factory=DriftClient)
     if name == "resume":
         runtime.session.user("Inspect pricing")
         runtime.session.history.append(
@@ -82,7 +82,7 @@ def run_case(name, config, *, repo_map=True):
             )
         )
         runtime.store.save(runtime.session)
-        runtime = Tero(root, config, session_id=runtime.session.id)
+        runtime = Tero(root, config, workspace_root=root, session_id=runtime.session.id)
     if name == "compaction":
         # Controlled pressure on real compaction, not a claimed natural long-task benchmark.
         runtime.session.user(NORMALIZER_REQUEST)

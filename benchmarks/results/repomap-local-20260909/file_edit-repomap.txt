@@ -1,0 +1,48 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/context.py
+  L216 method ContextManager.prepare — def prepare( self, session, instructions, tools, memories, client, store, budget, *, force=False, manual=False, )
+tero/changes.py
+  L11 function build_task_diff — def build_task_diff(session, artifacts, budget)
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/agent_loop.py
+  L59 function AgentLoop.run.save_mutation — def save_mutation(receipt)
+tero/memory.py
+  L56 method MemoryStore.save — def save(self, items)
+tero/session.py
+  L183 method SessionStore.save — def save(self, session)
+tero/context.py
+  L69 method ContextManager.count — def count(self, value)
+  L404 method ContextManager._with_repo_map — def _with_repo_map(self, session, instructions, items, tools, client, budget)
+tero/storage.py
+  L40 class Trace — class Trace
+tero/repo_map.py
+  L557 method RepoMap._parse_file — def _parse_file(self, relative_path, fingerprint, *, check_active=lambda: None)
+tero/context.py
+  L424 function ContextManager._with_repo_map.message — def message(text)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/tool_executor.py
+  L229 function file_revision — def file_revision(path, budget)
+tero/provider.py
+  L303 function response_text — def response_text(output)
+tero/tools.py
+  L33 class EditArgs — class EditArgs(Args)
+tero/artifacts.py
+  L37 method ArtifactStore.write_text — def write_text(self, content, *, kind="tool_output", capture_truncated=False, redacted=False)
+tero/context.py
+  L103 method ContextManager.items — def items(self, session, memories, *, covered=None, summary=None)
+tero/repo_map.py
+  L667 function _node_text — def _node_text(source, node)
+tero/changes.py
+  L74 function observe_interrupted_file — def observe_interrupted_file(session, entry_index, call)
+tero/context.py
+  L82 method ContextManager.unit — def unit(entry)
+tero/tool_executor.py
+  L711 method ToolExecutor._files — def _files(self, target, *, include_links=False)
+tero/provider.py
+  L19 class ContextOverflow — class ContextOverflow(ProviderError)
+tero/session.py
+  L178 method SessionStore.path — def path(self, session_id)
+tero/context.py
+  L59 method ContextManager.__init__ — def __init__(self, config, *, repo_map=None)

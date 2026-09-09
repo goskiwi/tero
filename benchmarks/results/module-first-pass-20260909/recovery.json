@@ -1,0 +1,460 @@
+{
+  "rows": [
+    {
+      "checks": {
+        "child_really_exited": true,
+        "correct_recovered_effect": true,
+        "recovery_did_not_write": true,
+        "resumed_verified": true,
+        "single_mutation_receipt": true
+      },
+      "automatic_completion": true,
+      "expected_safe_stop": false,
+      "persisted_phase": "pending",
+      "recovered_result": {
+        "status": "error",
+        "content": "Not started; no old action will be replayed.",
+        "workspace_effect": "none",
+        "error": "not_started",
+        "data": {},
+        "recovery": {
+          "condition": "retry_after_change",
+          "requirement": "The reported failure has been investigated and a concrete recovery condition identified.",
+          "action": "Inspect the recorded error and current state. Do not automatically repeat the operation or invent a root cause.",
+          "suggested_call": null
+        }
+      },
+      "resumed_result": {
+        "session_id": "a24430517ee54ce5",
+        "status": "completed",
+        "answer": "Verified current state.",
+        "stop_reason": "",
+        "verification": "passed",
+        "turns": 3,
+        "tools": 2,
+        "memory_changes": [],
+        "memory_error": "",
+        "unconfirmed": [],
+        "run_id": "261f213c01304ed5",
+        "metrics": {
+          "model_requests": 0,
+          "model_responses": 0,
+          "retries": 0,
+          "compactions": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_tokens": null,
+          "usage_complete": false,
+          "seconds": 0.034,
+          "scope": "this run, including summary and memory requests; excludes child runs"
+        },
+        "task_diff": {
+          "artifact": {
+            "id": "2d62dfa352194700b9603ff9c8875d55",
+            "kind": "diff",
+            "size_bytes": 170,
+            "capture_truncated": false,
+            "redacted": false
+          },
+          "artifact_path": "/Users/yankai/Documents/Course/Agents/coding agent/Tero/.tero/experiments/module-first-pass-20260909/recovery/pending_before_execution/workspace/.tero/artifacts/a24430517ee54ce5/2d62dfa352194700b9603ff9c8875d55.txt",
+          "changed_paths": [
+            "subject.py"
+          ],
+          "external_or_uncertain_paths": [],
+          "unavailable": [],
+          "shell_observed_paths": [],
+          "scope": "File tools only; Shell changes have no automatic preimage or rollback. Listed Shell paths may be truncated; consult the saved result. External attribution is not proven."
+        }
+      },
+      "case": "pending_before_execution",
+      "passed": true,
+      "error": null,
+      "seconds": 0.3482392500009155
+    },
+    {
+      "checks": {
+        "child_really_exited": true,
+        "correct_recovered_effect": true,
+        "recovery_did_not_write": true,
+        "resumed_verified": true,
+        "single_mutation_receipt": true
+      },
+      "automatic_completion": true,
+      "expected_safe_stop": false,
+      "persisted_phase": "running",
+      "recovered_result": {
+        "status": "error",
+        "content": "Execution interrupted; current observation is recorded, not a replayed success.",
+        "workspace_effect": "unknown",
+        "error": "interrupted",
+        "data": {},
+        "recovery": {
+          "condition": "retry_after_change",
+          "requirement": "Relevant file, process or remote state has been observed after the interruption.",
+          "action": "Inspect current state before deciding whether to retry. Do not blindly rerun the command. Local tests cannot establish remote effects; ask the user if essential state cannot be queried.",
+          "suggested_call": null
+        }
+      },
+      "resumed_result": {
+        "session_id": "b6a25dcbd11a4a05",
+        "status": "completed",
+        "answer": "Verified current state.",
+        "stop_reason": "",
+        "verification": "passed",
+        "turns": 3,
+        "tools": 2,
+        "memory_changes": [],
+        "memory_error": "",
+        "unconfirmed": [],
+        "run_id": "40ea28e5524540c7",
+        "metrics": {
+          "model_requests": 0,
+          "model_responses": 0,
+          "retries": 0,
+          "compactions": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_tokens": null,
+          "usage_complete": false,
+          "seconds": 0.033,
+          "scope": "this run, including summary and memory requests; excludes child runs"
+        },
+        "task_diff": {
+          "artifact": {
+            "id": "3849c906f4804a60aa6a6fd8a3ad73ec",
+            "kind": "diff",
+            "size_bytes": 170,
+            "capture_truncated": false,
+            "redacted": false
+          },
+          "artifact_path": "/Users/yankai/Documents/Course/Agents/coding agent/Tero/.tero/experiments/module-first-pass-20260909/recovery/running_before_mutation/workspace/.tero/artifacts/b6a25dcbd11a4a05/3849c906f4804a60aa6a6fd8a3ad73ec.txt",
+          "changed_paths": [
+            "subject.py"
+          ],
+          "external_or_uncertain_paths": [],
+          "unavailable": [],
+          "shell_observed_paths": [],
+          "scope": "File tools only; Shell changes have no automatic preimage or rollback. Listed Shell paths may be truncated; consult the saved result. External attribution is not proven."
+        }
+      },
+      "case": "running_before_mutation",
+      "passed": true,
+      "error": null,
+      "seconds": 0.20681320800213143
+    },
+    {
+      "checks": {
+        "child_really_exited": true,
+        "correct_recovered_effect": true,
+        "recovery_did_not_write": true,
+        "resumed_verified": true,
+        "single_mutation_receipt": true
+      },
+      "automatic_completion": true,
+      "expected_safe_stop": false,
+      "persisted_phase": "running",
+      "recovered_result": {
+        "status": "partial_success",
+        "content": "Execution interrupted; current observation is recorded, not a replayed success.",
+        "workspace_effect": "changed",
+        "error": "interrupted",
+        "data": {
+          "path": "subject.py",
+          "receipt": {
+            "id": "7c448097ddaa410fa487088f92fd3cbf",
+            "operation": {
+              "entry": 2,
+              "call_id": "change"
+            },
+            "path": "subject.py",
+            "before_revision": "sha256:33c9f262adca46337e8cb12e17a5b3eb17573d2ef47389d4a5a89de8a4104796",
+            "after_revision": "sha256:272c8ce332d1ac3170404fc5c1bd6d7625888327d066081b75cde0436c930114",
+            "preimage_id": "2630080df94d40c99bf736774178fb9a",
+            "before_mode": 420,
+            "status": "prepared"
+          },
+          "observed_revision": "sha256:272c8ce332d1ac3170404fc5c1bd6d7625888327d066081b75cde0436c930114",
+          "observation": "Current bytes match the planned after-state; this does not prove authorship."
+        },
+        "recovery": {
+          "condition": "retry_after_change",
+          "requirement": "The reported failure has been investigated and a concrete recovery condition identified.",
+          "action": "Inspect the recorded error and current state. Do not automatically repeat the operation or invent a root cause.",
+          "suggested_call": null
+        }
+      },
+      "resumed_result": {
+        "session_id": "07ec903608ee4167",
+        "status": "completed",
+        "answer": "Verified current state.",
+        "stop_reason": "",
+        "verification": "passed",
+        "turns": 2,
+        "tools": 1,
+        "memory_changes": [],
+        "memory_error": "",
+        "unconfirmed": [],
+        "run_id": "8ddd1086b9d24261",
+        "metrics": {
+          "model_requests": 0,
+          "model_responses": 0,
+          "retries": 0,
+          "compactions": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_tokens": null,
+          "usage_complete": false,
+          "seconds": 0.027,
+          "scope": "this run, including summary and memory requests; excludes child runs"
+        },
+        "task_diff": {
+          "artifact": {
+            "id": "1c9bfad305a44adb81cdcd86a301c13c",
+            "kind": "diff",
+            "size_bytes": 170,
+            "capture_truncated": false,
+            "redacted": false
+          },
+          "artifact_path": "/Users/yankai/Documents/Course/Agents/coding agent/Tero/.tero/experiments/module-first-pass-20260909/recovery/replace_before_result/workspace/.tero/artifacts/07ec903608ee4167/1c9bfad305a44adb81cdcd86a301c13c.txt",
+          "changed_paths": [
+            "subject.py"
+          ],
+          "external_or_uncertain_paths": [],
+          "unavailable": [],
+          "shell_observed_paths": [],
+          "scope": "File tools only; Shell changes have no automatic preimage or rollback. Listed Shell paths may be truncated; consult the saved result. External attribution is not proven."
+        }
+      },
+      "case": "replace_before_result",
+      "passed": true,
+      "error": null,
+      "seconds": 0.20443924999563023
+    },
+    {
+      "checks": {
+        "child_really_exited": true,
+        "correct_recovered_effect": true,
+        "recovery_did_not_write": true,
+        "external_edit_preserved": true
+      },
+      "automatic_completion": false,
+      "expected_safe_stop": true,
+      "persisted_phase": "running",
+      "recovered_result": {
+        "status": "error",
+        "content": "Execution interrupted; current observation is recorded, not a replayed success.",
+        "workspace_effect": "unknown",
+        "error": "interrupted",
+        "data": {
+          "path": "subject.py",
+          "receipt": {
+            "id": "6adb523b95d441e39f4430790d79202a",
+            "operation": {
+              "entry": 2,
+              "call_id": "change"
+            },
+            "path": "subject.py",
+            "before_revision": "sha256:33c9f262adca46337e8cb12e17a5b3eb17573d2ef47389d4a5a89de8a4104796",
+            "after_revision": "sha256:272c8ce332d1ac3170404fc5c1bd6d7625888327d066081b75cde0436c930114",
+            "preimage_id": "5b17b080b4f94347a4a1aece6053ee18",
+            "before_mode": 420,
+            "status": "prepared"
+          },
+          "observed_revision": "sha256:eafa8eb24f1a27661a60e79c24281c6972e3f136095838a36851fecfc1664545"
+        },
+        "recovery": {
+          "condition": "retry_after_change",
+          "requirement": "Relevant file, process or remote state has been observed after the interruption.",
+          "action": "Inspect current state before deciding whether to retry. Do not blindly rerun the command. Local tests cannot establish remote effects; ask the user if essential state cannot be queried.",
+          "suggested_call": {
+            "name": "read_file",
+            "arguments": {
+              "path": "subject.py",
+              "start": 1,
+              "end": 200
+            }
+          }
+        }
+      },
+      "resumed_result": null,
+      "case": "external_edit_on_recovery",
+      "passed": true,
+      "error": null,
+      "seconds": 0.17631662500207312
+    },
+    {
+      "checks": {
+        "call_ended": true,
+        "owned_process_stopped": true,
+        "correct_stop_reason": true
+      },
+      "result": [
+        {
+          "status": "partial_success",
+          "content": "exit_code: -9\nstdout:\n\nstderr:\n",
+          "workspace_effect": "changed",
+          "error": "tool_timeout",
+          "data": {
+            "command": "'/Users/yankai/Documents/Course/Agents/coding agent/Tero/.venv/bin/python' sleeper.py",
+            "exit_code": -9,
+            "stop_reason": "tool_timeout",
+            "capture_truncated": false,
+            "capture": {
+              "stdout": {
+                "total_bytes": 0,
+                "retained_bytes": 0,
+                "truncated": false
+              },
+              "stderr": {
+                "total_bytes": 0,
+                "retained_bytes": 0,
+                "truncated": false
+              }
+            },
+            "changed_paths": [
+              "pid.txt"
+            ],
+            "projection_truncated": false
+          },
+          "recovery": {
+            "condition": "retry_after_change",
+            "requirement": "The previous process/effects have been checked and a viable bounded command is chosen.",
+            "action": "Inspect the timeout output and changed paths; narrow the command or explicitly adjust its budget before retrying.",
+            "suggested_call": null
+          }
+        }
+      ],
+      "errors": [],
+      "automatic_completion": false,
+      "case": "shell_timeout",
+      "passed": true,
+      "error": null,
+      "seconds": 1.016964916998404
+    },
+    {
+      "checks": {
+        "call_ended": true,
+        "owned_process_stopped": true,
+        "correct_stop_reason": true
+      },
+      "result": [
+        {
+          "status": "partial_success",
+          "content": "exit_code: -9\nstdout:\n\nstderr:\n",
+          "workspace_effect": "unknown",
+          "error": "cancelled",
+          "data": {
+            "command": "'/Users/yankai/Documents/Course/Agents/coding agent/Tero/.venv/bin/python' sleeper.py",
+            "exit_code": -9,
+            "stop_reason": "cancelled",
+            "capture_truncated": false,
+            "capture": {
+              "stdout": {
+                "total_bytes": 0,
+                "retained_bytes": 0,
+                "truncated": false
+              },
+              "stderr": {
+                "total_bytes": 0,
+                "retained_bytes": 0,
+                "truncated": false
+              }
+            },
+            "changed_paths": [],
+            "projection_truncated": false
+          },
+          "recovery": {
+            "condition": "user_action_required",
+            "requirement": "The user resumes the task or supplies a new execution budget.",
+            "action": "Stop now. On resume inspect any uncertain effects before retrying; do not replay automatically.",
+            "suggested_call": null
+          }
+        }
+      ],
+      "errors": [],
+      "automatic_completion": false,
+      "case": "user_cancel_process",
+      "passed": true,
+      "error": null,
+      "seconds": 0.11381141599849798
+    },
+    {
+      "checks": {
+        "single_approval_request": true,
+        "no_file_written": true,
+        "repeat_limit_stopped": true
+      },
+      "result": {
+        "session_id": "4649eed82adb44c6",
+        "status": "stopped",
+        "answer": "Task not completed: repeated_tool_failure\nRepeated failures require changed inputs, state or an explicit user decision. Recorded edits and tool results are preserved in this Session.",
+        "stop_reason": "repeated_tool_failure",
+        "verification": "not_configured",
+        "turns": 3,
+        "tools": 3,
+        "memory_changes": [],
+        "memory_error": "",
+        "unconfirmed": [],
+        "run_id": "78fac5203ee84659",
+        "metrics": {
+          "model_requests": 0,
+          "model_responses": 0,
+          "retries": 0,
+          "compactions": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_tokens": null,
+          "usage_complete": false,
+          "seconds": 0.011,
+          "scope": "this run, including summary and memory requests; excludes child runs"
+        },
+        "task_diff": {
+          "artifact": null,
+          "artifact_path": null,
+          "changed_paths": [],
+          "external_or_uncertain_paths": [],
+          "unavailable": [],
+          "shell_observed_paths": [],
+          "scope": "File tools only; Shell changes have no automatic preimage or rollback. Listed Shell paths may be truncated; consult the saved result. External attribution is not proven."
+        }
+      },
+      "automatic_completion": false,
+      "case": "approval_repeated_denial",
+      "passed": true,
+      "error": null,
+      "seconds": 0.01332308400014881
+    },
+    {
+      "checks": {
+        "preview_is_bounded": true,
+        "saved_output_retrieved": true,
+        "no_command_reexecution": true
+      },
+      "automatic_completion": false,
+      "case": "large_result_paging",
+      "passed": true,
+      "error": null,
+      "seconds": 0.030078875002800487
+    },
+    {
+      "checks": {
+        "old_format_rejected": true
+      },
+      "automatic_completion": false,
+      "case": "incompatible_session",
+      "passed": true,
+      "error": null,
+      "seconds": 0.0007099159993231297
+    },
+    {
+      "checks": {
+        "other_session_not_read": true
+      },
+      "automatic_completion": false,
+      "case": "artifact_session_scope",
+      "passed": true,
+      "error": null,
+      "seconds": 0.001207875000545755
+    }
+  ]
+}

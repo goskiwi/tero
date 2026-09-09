@@ -1,0 +1,1034 @@
+[
+  {
+    "case": "8-0-0",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-0-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 2.6000008801929653e-05,
+    "estimated_input_tokens": 3357,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.4865899580036057,
+    "probe_usage": {
+      "input_tokens": 3213,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 221,
+      "output_tokens_details": {
+        "reasoning_tokens": 154
+      },
+      "total_tokens": 3434
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 3213,
+      "output_tokens": 221,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-0-0",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-0-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.008363708009710535,
+    "estimated_input_tokens": 3471,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.14606037500198,
+    "probe_usage": {
+      "input_tokens": 3315,
+      "input_tokens_details": {
+        "cached_tokens": 3200
+      },
+      "output_tokens": 342,
+      "output_tokens_details": {
+        "reasoning_tokens": 275
+      },
+      "total_tokens": 3657
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 3315,
+      "output_tokens": 342,
+      "cached_tokens": 3200,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-0-1",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-0-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.006414540999685414,
+    "estimated_input_tokens": 3527,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.837575833007577,
+    "probe_usage": {
+      "input_tokens": 3373,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 389,
+      "output_tokens_details": {
+        "reasoning_tokens": 330
+      },
+      "total_tokens": 3762
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 3373,
+      "output_tokens": 389,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-0-1",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-0-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 9.712499740999192e-05,
+    "estimated_input_tokens": 3413,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.4136209999996936,
+    "probe_usage": {
+      "input_tokens": 3271,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 255,
+      "output_tokens_details": {
+        "reasoning_tokens": 207
+      },
+      "total_tokens": 3526
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 3271,
+      "output_tokens": 255,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-1-0",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-1-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.00011329200060572475,
+    "estimated_input_tokens": 7801,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.978162749990588,
+    "probe_usage": {
+      "input_tokens": 7613,
+      "input_tokens_details": {
+        "cached_tokens": 768
+      },
+      "output_tokens": 363,
+      "output_tokens_details": {
+        "reasoning_tokens": 296
+      },
+      "total_tokens": 7976
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 7613,
+      "output_tokens": 363,
+      "cached_tokens": 768,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-1-0",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-1-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.020376041997224092,
+    "estimated_input_tokens": 7915,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.1251792919938453,
+    "probe_usage": {
+      "input_tokens": 7715,
+      "input_tokens_details": {
+        "cached_tokens": 7552
+      },
+      "output_tokens": 122,
+      "output_tokens_details": {
+        "reasoning_tokens": 74
+      },
+      "total_tokens": 7837
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 7715,
+      "output_tokens": 122,
+      "cached_tokens": 7552,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-1-1",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-1-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.010779792006360367,
+    "estimated_input_tokens": 8005,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.4698836669995217,
+    "probe_usage": {
+      "input_tokens": 7807,
+      "input_tokens_details": {
+        "cached_tokens": 768
+      },
+      "output_tokens": 184,
+      "output_tokens_details": {
+        "reasoning_tokens": 136
+      },
+      "total_tokens": 7991
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 7807,
+      "output_tokens": 184,
+      "cached_tokens": 768,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "8-1-1",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-8-1-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.00020479199883993715,
+    "estimated_input_tokens": 7891,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.8306324999866774,
+    "probe_usage": {
+      "input_tokens": 7705,
+      "input_tokens_details": {
+        "cached_tokens": 7680
+      },
+      "output_tokens": 223,
+      "output_tokens_details": {
+        "reasoning_tokens": 156
+      },
+      "total_tokens": 7928
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 7705,
+      "output_tokens": 223,
+      "cached_tokens": 7680,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "24-0-0",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-0-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.00343241699738428,
+    "estimated_input_tokens": 9655,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.8618017090047942,
+    "probe_usage": {
+      "input_tokens": 9270,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 258,
+      "output_tokens_details": {
+        "reasoning_tokens": 191
+      },
+      "total_tokens": 9528
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 9270,
+      "output_tokens": 258,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "24-0-0",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-0-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.03373125000507571,
+    "estimated_input_tokens": 9769,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.7995188339991728,
+    "probe_usage": {
+      "input_tokens": 9372,
+      "input_tokens_details": {
+        "cached_tokens": 9216
+      },
+      "output_tokens": 156,
+      "output_tokens_details": {
+        "reasoning_tokens": 97
+      },
+      "total_tokens": 9528
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 9372,
+      "output_tokens": 156,
+      "cached_tokens": 9216,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "24-0-1",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-0-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.020857874987996183,
+    "estimated_input_tokens": 9837,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.67058283300139,
+    "probe_usage": {
+      "input_tokens": 9436,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 177,
+      "output_tokens_details": {
+        "reasoning_tokens": 110
+      },
+      "total_tokens": 9613
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 9436,
+      "output_tokens": 177,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "24-0-1",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-0-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.0002177499991375953,
+    "estimated_input_tokens": 9723,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.989019542001188,
+    "probe_usage": {
+      "input_tokens": 9334,
+      "input_tokens_details": {
+        "cached_tokens": 3456
+      },
+      "output_tokens": 412,
+      "output_tokens_details": {
+        "reasoning_tokens": 345
+      },
+      "total_tokens": 9746
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 9334,
+      "output_tokens": 412,
+      "cached_tokens": 3456,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "24-1-0",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-1-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.0002170410007238388,
+    "estimated_input_tokens": 22858,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.141599957991275,
+    "probe_usage": {
+      "input_tokens": 22336,
+      "input_tokens_details": {
+        "cached_tokens": 768
+      },
+      "output_tokens": 207,
+      "output_tokens_details": {
+        "reasoning_tokens": 159
+      },
+      "total_tokens": 22543
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 22336,
+      "output_tokens": 207,
+      "cached_tokens": 768,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "24-1-0",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-1-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 14.983392333000666,
+    "estimated_input_tokens": 12268,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 16.77431512500334,
+    "probe_usage": {
+      "input_tokens": 11996,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 141,
+      "output_tokens_details": {
+        "reasoning_tokens": 93
+      },
+      "total_tokens": 12137
+    },
+    "metrics": {
+      "model_requests": 2,
+      "model_responses": 2,
+      "retries": 0,
+      "compactions": 1,
+      "input_tokens": 19110,
+      "output_tokens": 2295,
+      "cached_tokens": 0,
+      "usage_complete": true
+    },
+    "summary_calls": 1
+  },
+  {
+    "case": "24-1-1",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-1-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 3.618675332996645,
+    "estimated_input_tokens": 11657,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 5.8356032079900615,
+    "probe_usage": {
+      "input_tokens": 11384,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 294,
+      "output_tokens_details": {
+        "reasoning_tokens": 227
+      },
+      "total_tokens": 11678
+    },
+    "metrics": {
+      "model_requests": 2,
+      "model_responses": 2,
+      "retries": 0,
+      "compactions": 1,
+      "input_tokens": 18557,
+      "output_tokens": 732,
+      "cached_tokens": 0,
+      "usage_complete": true
+    },
+    "summary_calls": 1
+  },
+  {
+    "case": "24-1-1",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-24-1-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.0006366250017890707,
+    "estimated_input_tokens": 22909,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 1.2117215000034776,
+    "probe_usage": {
+      "input_tokens": 22393,
+      "input_tokens_details": {
+        "cached_tokens": 768
+      },
+      "output_tokens": 135,
+      "output_tokens_details": {
+        "reasoning_tokens": 87
+      },
+      "total_tokens": 22528
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 22393,
+      "output_tokens": 135,
+      "cached_tokens": 768,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "48-0-0",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-0-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.00017866698908619583,
+    "estimated_input_tokens": 19056,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.5623242079891497,
+    "probe_usage": {
+      "input_tokens": 18295,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 323,
+      "output_tokens_details": {
+        "reasoning_tokens": 264
+      },
+      "total_tokens": 18618
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 18295,
+      "output_tokens": 323,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "48-0-0",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-0-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 10.137693374999799,
+    "estimated_input_tokens": 12222,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 13.025773375004064,
+    "probe_usage": {
+      "input_tokens": 11719,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 178,
+      "output_tokens_details": {
+        "reasoning_tokens": 119
+      },
+      "total_tokens": 11897
+    },
+    "metrics": {
+      "model_requests": 2,
+      "model_responses": 2,
+      "retries": 0,
+      "compactions": 1,
+      "input_tokens": 16940,
+      "output_tokens": 1587,
+      "cached_tokens": 256,
+      "usage_complete": true
+    },
+    "summary_calls": 1
+  },
+  {
+    "case": "48-0-1",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-0-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 13.160384332994,
+    "estimated_input_tokens": 12321,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 14.468194500004756,
+    "probe_usage": {
+      "input_tokens": 11829,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 150,
+      "output_tokens_details": {
+        "reasoning_tokens": 102
+      },
+      "total_tokens": 11979
+    },
+    "metrics": {
+      "model_requests": 2,
+      "model_responses": 2,
+      "retries": 0,
+      "compactions": 1,
+      "input_tokens": 17119,
+      "output_tokens": 1975,
+      "cached_tokens": 256,
+      "usage_complete": true
+    },
+    "summary_calls": 1
+  },
+  {
+    "case": "48-0-1",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-0-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.0012397500104270875,
+    "estimated_input_tokens": 19131,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.480849750005291,
+    "probe_usage": {
+      "input_tokens": 18371,
+      "input_tokens_details": {
+        "cached_tokens": 640
+      },
+      "output_tokens": 276,
+      "output_tokens_details": {
+        "reasoning_tokens": 209
+      },
+      "total_tokens": 18647
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 18371,
+      "output_tokens": 276,
+      "cached_tokens": 640,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "48-1-0",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-1-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.0003411670040804893,
+    "estimated_input_tokens": 45490,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 2.3328697919932893,
+    "probe_usage": {
+      "input_tokens": 44479,
+      "input_tokens_details": {
+        "cached_tokens": 768
+      },
+      "output_tokens": 111,
+      "output_tokens_details": {
+        "reasoning_tokens": 63
+      },
+      "total_tokens": 44590
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 44479,
+      "output_tokens": 111,
+      "cached_tokens": 768,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  },
+  {
+    "case": "48-1-0",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-1-0",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 7.142319791993941,
+    "estimated_input_tokens": 12088,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 8.344270292000147,
+    "probe_usage": {
+      "input_tokens": 11817,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 122,
+      "output_tokens_details": {
+        "reasoning_tokens": 63
+      },
+      "total_tokens": 11939
+    },
+    "metrics": {
+      "model_requests": 2,
+      "model_responses": 2,
+      "retries": 0,
+      "compactions": 1,
+      "input_tokens": 32231,
+      "output_tokens": 1143,
+      "cached_tokens": 256,
+      "usage_complete": true
+    },
+    "summary_calls": 1
+  },
+  {
+    "case": "48-1-1",
+    "variant": "managed",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-1-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 17.629967790999217,
+    "estimated_input_tokens": 12399,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 19.371470500002033,
+    "probe_usage": {
+      "input_tokens": 12133,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 142,
+      "output_tokens_details": {
+        "reasoning_tokens": 83
+      },
+      "total_tokens": 12275
+    },
+    "metrics": {
+      "model_requests": 2,
+      "model_responses": 2,
+      "retries": 0,
+      "compactions": 1,
+      "input_tokens": 32599,
+      "output_tokens": 2576,
+      "cached_tokens": 384,
+      "usage_complete": true
+    },
+    "summary_calls": 1
+  },
+  {
+    "case": "48-1-1",
+    "variant": "raw",
+    "error": null,
+    "answer": {
+      "ticket": "CTX-48-1-1",
+      "api": "quote_v2",
+      "money": "integer_cents",
+      "unit_test": "passed",
+      "integration_test": "blocked_database",
+      "next_step": "refund_integration"
+    },
+    "correct": true,
+    "prepare_seconds": 0.00048499999684281647,
+    "estimated_input_tokens": 45539,
+    "request_preserved": true,
+    "tool_pairs_valid": true,
+    "correct_fields": 6,
+    "total_fields": 6,
+    "seconds": 3.494152874991414,
+    "probe_usage": {
+      "input_tokens": 44524,
+      "input_tokens_details": {
+        "cached_tokens": 768
+      },
+      "output_tokens": 256,
+      "output_tokens_details": {
+        "reasoning_tokens": 197
+      },
+      "total_tokens": 44780
+    },
+    "metrics": {
+      "model_requests": 1,
+      "model_responses": 1,
+      "retries": 0,
+      "compactions": 0,
+      "input_tokens": 44524,
+      "output_tokens": 256,
+      "cached_tokens": 768,
+      "usage_complete": true
+    },
+    "summary_calls": 0
+  }
+]

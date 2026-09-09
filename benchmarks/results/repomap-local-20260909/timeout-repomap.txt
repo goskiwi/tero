@@ -1,0 +1,49 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/commands.py
+  L37 function run_command — def run_command(command, root, timeout, budget)
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/tool_executor.py
+  L769 method ToolExecutor.observe_command — def observe_command(self, command, timeout)
+tero/context.py
+  L216 method ContextManager.prepare — def prepare( self, session, instructions, tools, memories, client, store, budget, *, force=False, manual=False, )
+tero/commands.py
+  L29 function stop_process — def stop_process(process)
+tero/storage.py
+  L40 class Trace — class Trace
+tero/context.py
+  L69 method ContextManager.count — def count(self, value)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/changes.py
+  L74 function observe_interrupted_file — def observe_interrupted_file(session, entry_index, call)
+tero/tools.py
+  L44 class ShellArgs — class ShellArgs(Args)
+tero/session.py
+  L122 method Session.observe_result — def observe_result(self, index, call, result)
+tero/context.py
+  L404 method ContextManager._with_repo_map — def _with_repo_map(self, session, instructions, items, tools, client, budget)
+tero/execution.py
+  L16 method Budget.check — def check(self)
+tero/context.py
+  L73 method ContextManager.fits — def fits(self, instructions, items, tools, output_tokens=None): # Local estimation includes protocol envelopes; provider usage remains authoritative.
+tero/session.py
+  L178 method SessionStore.path — def path(self, session_id)
+tero/agent_loop.py
+  L41 method AgentLoop.run — def run(self, message, *, budget=None)
+tero/context.py
+  L103 method ContextManager.items — def items(self, session, memories, *, covered=None, summary=None)
+tero/provider.py
+  L50 method ResponsesClient._request_once — def _request_once( self, instructions, items, tools, budget, *, purpose="main", output_tokens=None, json_mode=False, reasoning_effort=None, )
+tero/context.py
+  L82 method ContextManager.unit — def unit(entry)
+tero/completion.py
+  L8 function check_completion — def check_completion(session, executor, store)
+tero/execution.py
+  L7 class ExecutionStopped — class ExecutionStopped(RuntimeError)
+tero/context.py
+  L58 class ContextManager — class ContextManager
+tero/runtime.py
+  L53 method Tero.redact — def redact(self, text)
+tero/tool_executor.py
+  L34 class ToolResult — class ToolResult

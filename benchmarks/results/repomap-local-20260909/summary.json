@@ -1,0 +1,18 @@
+{
+  "lexical": {
+    "file_hits": 8,
+    "file_total": 15,
+    "symbol_hits": 8,
+    "symbol_total": 16,
+    "median_build_ms": 33.55081249901559,
+    "median_query_render_ms": 2.4117084976751357
+  },
+  "repomap": {
+    "file_hits": 8,
+    "file_total": 15,
+    "symbol_hits": 11,
+    "symbol_total": 16,
+    "median_build_ms": 33.51577100693248,
+    "median_query_render_ms": 5.764457993791439
+  }
+}

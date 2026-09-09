@@ -1,0 +1,48 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/changes.py
+  L11 function build_task_diff — def build_task_diff(session, artifacts, budget)
+tero/context.py
+  L424 function ContextManager._with_repo_map.message — def message(text)
+tero/agent_loop.py
+  L59 function AgentLoop.run.save_mutation — def save_mutation(receipt)
+tero/storage.py
+  L40 class Trace — class Trace
+tero/memory.py
+  L56 method MemoryStore.save — def save(self, items)
+tero/session.py
+  L183 method SessionStore.save — def save(self, session)
+tero/context.py
+  L48 class ContextTooLarge — class ContextTooLarge(RuntimeError)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/context.py
+  L58 class ContextManager — class ContextManager
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/provider.py
+  L19 class ContextOverflow — class ContextOverflow(ProviderError)
+tero/tools.py
+  L33 class EditArgs — class EditArgs(Args)
+tero/repo_map.py
+  L207 class ParsedFile — class ParsedFile
+tero/tool_executor.py
+  L212 function filesystem_failure_code — def filesystem_failure_code(exc)
+tero/context.py
+  L281 function ContextManager.prepare.retain — def retain(reason)
+tero/artifacts.py
+  L37 method ArtifactStore.write_text — def write_text(self, content, *, kind="tool_output", capture_truncated=False, redacted=False)
+tero/context.py
+  L59 method ContextManager.__init__ — def __init__(self, config, *, repo_map=None)
+tero/changes.py
+  L74 function observe_interrupted_file — def observe_interrupted_file(session, entry_index, call)
+tero/tool_executor.py
+  L229 function file_revision — def file_revision(path, budget)
+tero/provider.py
+  L303 function response_text — def response_text(output)
+tero/repo_map.py
+  L667 function _node_text — def _node_text(source, node)
+tero/context.py
+  L69 method ContextManager.count — def count(self, value)
+  L73 method ContextManager.fits — def fits(self, instructions, items, tools, output_tokens=None): # Local estimation includes protocol envelopes; provider usage remains authoritative.
+tero/tool_executor.py
+  L716 function ToolExecutor._files.fail — def fail(error)

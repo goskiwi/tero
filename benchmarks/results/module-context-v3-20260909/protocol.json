@@ -1,0 +1,33 @@
+{
+  "format": "tero-module-experiments-2",
+  "runtime_commit": "2d41fb1199e9023b0eaca7f0413e48d40269c3a2",
+  "config": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "mode": "ask",
+    "max_turns": 32,
+    "max_parallel_tools": 4,
+    "runtime_seconds": 600,
+    "request_seconds": 300,
+    "tool_seconds": 120,
+    "context_tokens": 1000000,
+    "output_tokens": 4096,
+    "compaction_trigger_tokens": 12000,
+    "recent_tokens": 12000,
+    "summary_tokens": 4096,
+    "summary_generation_tokens": 32768,
+    "memory_tokens": 2000,
+    "repo_map_tokens": 1200,
+    "verify_command": "",
+    "allowed_write_paths": null,
+    "memory_enabled": true,
+    "repo_map_enabled": false
+  },
+  "repetitions": 1,
+  "context_cases": 12,
+  "memory_cases": 6,
+  "recovery_cases": 10,
+  "method": "First pass. All failures retained. No retries of experiment rows. Provider transient retries remain enabled.",
+  "context_metric": "1-sum(managed probe input tokens)/sum(raw probe input tokens), paired available usage only; correctness includes all rows.",
+  "memory_metric": "Exact answer accuracy on fresh sessions; no old transcript. UNKNOWN required for unavailable facts."
+}

@@ -1,0 +1,48 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/tool_executor.py
+  L34 class ToolResult — class ToolResult
+tero/tools.py
+  L6 class Args — class Args(BaseModel)
+tero/tool_executor.py
+  L42 method ToolResult.recovery — def recovery(self)
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/session.py
+  L178 method SessionStore.path — def path(self, session_id)
+tero/changes.py
+  L74 function observe_interrupted_file — def observe_interrupted_file(session, entry_index, call)
+tero/tool_executor.py
+  L51 function recovery_for — def recovery_for(code, effect, data)
+tero/tool_batch.py
+  L11 function execute_batch — def execute_batch(executor, calls, on_start, stopped)
+tero/tool_executor.py
+  L711 method ToolExecutor._files — def _files(self, target, *, include_links=False)
+tero/agent_loop.py
+  L59 function AgentLoop.run.save_mutation — def save_mutation(receipt)
+tero/tools.py
+  L88 function tool_schemas — def tool_schemas(mode, *, child=False)
+tero/storage.py
+  L40 class Trace — class Trace
+tero/tool_executor.py
+  L24 class ToolError — class ToolError(ValueError)
+tero/execution.py
+  L16 method Budget.check — def check(self)
+tero/session.py
+  L69 method Session.pending — def pending(self)
+tero/tool_executor.py
+  L67 function recovery_for.advice — def advice(condition, action, suggested_call=None)
+tero/repo_map.py
+  L557 method RepoMap._parse_file — def _parse_file(self, relative_path, fingerprint, *, check_active=lambda: None)
+tero/completion.py
+  L8 function check_completion — def check_completion(session, executor, store)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/context.py
+  L48 class ContextTooLarge — class ContextTooLarge(RuntimeError)
+tero/cli.py
+  L83 function show_result — def show_result(result, memory_enabled)
+tero/tool_executor.py
+  L47 method ToolResult.to_dict — def to_dict(self)
+  L268 method ToolExecutor.resolve — def resolve(self, value)
+tero/agent_loop.py
+  L41 method AgentLoop.run — def run(self, message, *, budget=None)

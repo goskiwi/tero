@@ -1,0 +1,4694 @@
+[
+  {
+    "case": "compaction",
+    "variant": "lexical",
+    "query": "Trace how older conversation is compressed while preserving current work.\nSelect the eligible history boundary and commit the new summary.\nSend the dedicated summary request to the provider.\nRecord which history the main model has actually observed.",
+    "expected_files": [
+      "tero/agent_loop.py",
+      "tero/context.py",
+      "tero/provider.py"
+    ],
+    "top5_files": [
+      "tero/storage.py",
+      "tero/provider.py",
+      "tero/cli.py",
+      "tero/session.py",
+      "tero/execution.py"
+    ],
+    "file_hits": 1,
+    "file_total": 3,
+    "expected_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/context.py",
+        "prepare"
+      ],
+      [
+        "tero/provider.py",
+        "summarize"
+      ]
+    ],
+    "symbol_hits": 0,
+    "symbol_total": 3,
+    "missing_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/context.py",
+        "prepare"
+      ],
+      [
+        "tero/provider.py",
+        "summarize"
+      ]
+    ],
+    "build_ms": 38.12683300930075,
+    "median_query_render_ms": 2.3581669956911355,
+    "tokens": 537,
+    "details": {
+      "query": "Trace how older conversation is compressed while preserving current work.\nSelect the eligible history boundary and commit the new summary.\nSend the dedicated summary request to the provider.\nRecord which history the main model has actually observed.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/storage.py",
+        "tero/provider.py",
+        "tero/cli.py",
+        "tero/session.py",
+        "tero/execution.py",
+        "tero/context.py",
+        "tero/repo_map.py",
+        "tero/tools.py",
+        "tero/memory.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.62,
+          "lexical_score": 1.0,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace",
+            "name:record"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 32,
+          "end_line": 48,
+          "kind": "method",
+          "qualified_name": "ResponsesClient.request",
+          "score": 0.4805,
+          "lexical_score": 0.775,
+          "graph_score": 0,
+          "reasons": [
+            "name:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 99,
+          "end_line": 186,
+          "kind": "function",
+          "qualified_name": "main",
+          "score": 0.33,
+          "lexical_score": 0.5,
+          "graph_score": 0,
+          "reasons": [
+            "name:main"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 14,
+          "end_line": 16,
+          "kind": "method",
+          "qualified_name": "ProviderError.__init__",
+          "score": 0.372,
+          "lexical_score": 0.6,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:provider",
+            "path:provider",
+            "signature:provider"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.33,
+          "lexical_score": 0.5,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 50,
+          "end_line": 205,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._request_once",
+          "score": 0.372,
+          "lexical_score": 0.6,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:request",
+            "path:provider",
+            "signature:main"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.31,
+          "lexical_score": 0.5,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 15,
+          "end_line": 16,
+          "kind": "function",
+          "qualified_name": "new_verification",
+          "score": 0.175,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:new"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 13,
+          "end_line": 16,
+          "kind": "class",
+          "qualified_name": "ProviderError",
+          "score": 0.3455,
+          "lexical_score": 0.525,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:provider",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 22,
+          "end_line": 25,
+          "kind": "method",
+          "qualified_name": "Budget.remaining",
+          "score": 0.155,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:main"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 185,
+          "end_line": 214,
+          "kind": "method",
+          "qualified_name": "ContextManager.summary_source",
+          "score": 0.155,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:summary"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 308,
+          "end_line": 326,
+          "kind": "method",
+          "qualified_name": "RepoMapQuery._select_diverse",
+          "score": 0.155,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:select"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 23,
+          "end_line": 24,
+          "kind": "class",
+          "qualified_name": "TransientProviderError",
+          "score": 0.3455,
+          "lexical_score": 0.525,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:provider",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 19,
+          "end_line": 27,
+          "kind": "function",
+          "qualified_name": "new_loop_control",
+          "score": 0.175,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:new"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.175,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:how"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 89,
+          "end_line": 94,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.shutdown",
+          "score": 0.3455,
+          "lexical_score": 0.525,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 96,
+          "end_line": 103,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.transport_event",
+          "score": 0.3455,
+          "lexical_score": 0.525,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 30,
+          "end_line": 41,
+          "kind": "function",
+          "qualified_name": "new_turn",
+          "score": 0.175,
+          "lexical_score": 0.25,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:new"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 105,
+          "end_line": 113,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.watch",
+          "score": 0.3455,
+          "lexical_score": 0.525,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 73,
+          "end_line": 79,
+          "kind": "method",
+          "qualified_name": "ContextManager.fits",
+          "score": 0.093,
+          "lexical_score": 0.15,
+          "graph_score": 0,
+          "reasons": [
+            "signature:provider",
+            "signature:main"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 6,
+          "end_line": 7,
+          "kind": "class",
+          "qualified_name": "Args",
+          "score": 0.0665,
+          "lexical_score": 0.075,
+          "graph_score": 0,
+          "reasons": [
+            "signature:model"
+          ]
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 15,
+          "end_line": 23,
+          "kind": "class",
+          "qualified_name": "MemoryChange",
+          "score": 0.0665,
+          "lexical_score": 0.075,
+          "graph_score": 0,
+          "reasons": [
+            "signature:model"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 19,
+          "end_line": 20,
+          "kind": "class",
+          "qualified_name": "ContextOverflow",
+          "score": 0.237,
+          "lexical_score": 0.35,
+          "graph_score": 0,
+          "reasons": [
+            "path:provider",
+            "signature:provider"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 28,
+          "end_line": 30,
+          "kind": "method",
+          "qualified_name": "ResponsesClient.__init__",
+          "score": 0.217,
+          "lexical_score": 0.35,
+          "graph_score": 0,
+          "reasons": [
+            "signature:trace",
+            "path:provider"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "compaction",
+    "variant": "repomap",
+    "query": "Trace how older conversation is compressed while preserving current work.\nSelect the eligible history boundary and commit the new summary.\nSend the dedicated summary request to the provider.\nRecord which history the main model has actually observed.",
+    "expected_files": [
+      "tero/agent_loop.py",
+      "tero/context.py",
+      "tero/provider.py"
+    ],
+    "top5_files": [
+      "tero/storage.py",
+      "tero/provider.py",
+      "tero/cli.py",
+      "tero/execution.py",
+      "tero/session.py"
+    ],
+    "file_hits": 1,
+    "file_total": 3,
+    "expected_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/context.py",
+        "prepare"
+      ],
+      [
+        "tero/provider.py",
+        "summarize"
+      ]
+    ],
+    "symbol_hits": 2,
+    "symbol_total": 3,
+    "missing_symbols": [
+      [
+        "tero/provider.py",
+        "summarize"
+      ]
+    ],
+    "build_ms": 33.47487500286661,
+    "median_query_render_ms": 5.737790997955017,
+    "tokens": 545,
+    "details": {
+      "query": "Trace how older conversation is compressed while preserving current work.\nSelect the eligible history boundary and commit the new summary.\nSend the dedicated summary request to the provider.\nRecord which history the main model has actually observed.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/storage.py",
+        "tero/provider.py",
+        "tero/cli.py",
+        "tero/execution.py",
+        "tero/session.py",
+        "tero/agent_loop.py",
+        "tero/repo_map.py",
+        "tero/context.py",
+        "tero/tool_executor.py",
+        "tero/tool_batch.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.876859,
+          "lexical_score": 1.0,
+          "graph_score": 0.713497,
+          "reasons": [
+            "name:trace",
+            "name:record"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 13,
+          "end_line": 16,
+          "kind": "class",
+          "qualified_name": "ProviderError",
+          "score": 0.7055,
+          "lexical_score": 0.525,
+          "graph_score": 1.0,
+          "reasons": [
+            "symbol:provider",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 32,
+          "end_line": 48,
+          "kind": "method",
+          "qualified_name": "ResponsesClient.request",
+          "score": 0.659945,
+          "lexical_score": 0.775,
+          "graph_score": 0.498458,
+          "reasons": [
+            "name:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 99,
+          "end_line": 186,
+          "kind": "function",
+          "qualified_name": "main",
+          "score": 0.479104,
+          "lexical_score": 0.5,
+          "graph_score": 0.414178,
+          "reasons": [
+            "name:main"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 50,
+          "end_line": 205,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._request_once",
+          "score": 0.647754,
+          "lexical_score": 0.6,
+          "graph_score": 0.765982,
+          "reasons": [
+            "symbol:request",
+            "path:provider",
+            "signature:main"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 89,
+          "end_line": 94,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.shutdown",
+          "score": 0.615913,
+          "lexical_score": 0.525,
+          "graph_score": 0.751147,
+          "reasons": [
+            "symbol:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.393417,
+          "lexical_score": 0.5,
+          "graph_score": 0.176159,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 16,
+          "end_line": 20,
+          "kind": "method",
+          "qualified_name": "Budget.check",
+          "score": 0.28462,
+          "lexical_score": 0.0,
+          "graph_score": 0.790611,
+          "reasons": []
+        },
+        {
+          "path": "tero/session.py",
+          "line": 178,
+          "end_line": 181,
+          "kind": "method",
+          "qualified_name": "SessionStore.path",
+          "score": 0.235676,
+          "lexical_score": 0.0,
+          "graph_score": 0.654655,
+          "reasons": []
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 14,
+          "end_line": 16,
+          "kind": "method",
+          "qualified_name": "ProviderError.__init__",
+          "score": 0.545175,
+          "lexical_score": 0.6,
+          "graph_score": 0.481042,
+          "reasons": [
+            "symbol:provider",
+            "path:provider",
+            "signature:provider"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.218781,
+          "lexical_score": 0.0,
+          "graph_score": 0.607724,
+          "reasons": []
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.365959,
+          "lexical_score": 0.5,
+          "graph_score": 0.155441,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 308,
+          "end_line": 326,
+          "kind": "method",
+          "qualified_name": "RepoMapQuery._select_diverse",
+          "score": 0.185547,
+          "lexical_score": 0.25,
+          "graph_score": 0.084852,
+          "reasons": [
+            "symbol:select"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 105,
+          "end_line": 113,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.watch",
+          "score": 0.504048,
+          "lexical_score": 0.525,
+          "graph_score": 0.440412,
+          "reasons": [
+            "symbol:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 185,
+          "end_line": 214,
+          "kind": "method",
+          "qualified_name": "ContextManager.summary_source",
+          "score": 0.181605,
+          "lexical_score": 0.25,
+          "graph_score": 0.073902,
+          "reasons": [
+            "symbol:summary"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 22,
+          "end_line": 25,
+          "kind": "method",
+          "qualified_name": "Budget.remaining",
+          "score": 0.229712,
+          "lexical_score": 0.25,
+          "graph_score": 0.207534,
+          "reasons": [
+            "symbol:main"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 19,
+          "end_line": 27,
+          "kind": "function",
+          "qualified_name": "new_loop_control",
+          "score": 0.212101,
+          "lexical_score": 0.25,
+          "graph_score": 0.103057,
+          "reasons": [
+            "symbol:new"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.209733,
+          "lexical_score": 0.25,
+          "graph_score": 0.09648,
+          "reasons": [
+            "symbol:how"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 96,
+          "end_line": 103,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.transport_event",
+          "score": 0.449057,
+          "lexical_score": 0.525,
+          "graph_score": 0.287658,
+          "reasons": [
+            "symbol:request",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 34,
+          "end_line": 48,
+          "kind": "class",
+          "qualified_name": "ToolResult",
+          "score": 0.136071,
+          "lexical_score": 0.0,
+          "graph_score": 0.32242,
+          "reasons": []
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 23,
+          "end_line": 24,
+          "kind": "class",
+          "qualified_name": "TransientProviderError",
+          "score": 0.438239,
+          "lexical_score": 0.525,
+          "graph_score": 0.257608,
+          "reasons": [
+            "symbol:provider",
+            "path:provider"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 216,
+          "end_line": 402,
+          "kind": "method",
+          "qualified_name": "ContextManager.prepare",
+          "score": 0.166663,
+          "lexical_score": 0.0,
+          "graph_score": 0.462953,
+          "reasons": []
+        },
+        {
+          "path": "tero/session.py",
+          "line": 30,
+          "end_line": 41,
+          "kind": "function",
+          "qualified_name": "new_turn",
+          "score": 0.204838,
+          "lexical_score": 0.25,
+          "graph_score": 0.082883,
+          "reasons": [
+            "symbol:new"
+          ]
+        },
+        {
+          "path": "tero/tool_batch.py",
+          "line": 11,
+          "end_line": 76,
+          "kind": "function",
+          "qualified_name": "execute_batch",
+          "score": 0.117468,
+          "lexical_score": 0.0,
+          "graph_score": 0.270744,
+          "reasons": []
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "recovery",
+    "variant": "lexical",
+    "query": "Trace recovery after a file replacement succeeds but the tool result was not saved.\nClose pending interrupted calls without automatically replaying them.\nCompare current file contents with the saved mutation receipt.",
+    "expected_files": [
+      "tero/changes.py",
+      "tero/session.py"
+    ],
+    "top5_files": [
+      "tero/tool_executor.py",
+      "tero/tools.py",
+      "tero/storage.py",
+      "tero/changes.py",
+      "tero/session.py"
+    ],
+    "file_hits": 2,
+    "file_total": 2,
+    "expected_symbols": [
+      [
+        "tero/changes.py",
+        "observe_interrupted_file"
+      ],
+      [
+        "tero/session.py",
+        "recover"
+      ]
+    ],
+    "symbol_hits": 1,
+    "symbol_total": 2,
+    "missing_symbols": [
+      [
+        "tero/session.py",
+        "recover"
+      ]
+    ],
+    "build_ms": 33.052791986847296,
+    "median_query_render_ms": 2.465249999659136,
+    "tokens": 542,
+    "details": {
+      "query": "Trace recovery after a file replacement succeeds but the tool result was not saved.\nClose pending interrupted calls without automatically replaying them.\nCompare current file contents with the saved mutation receipt.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/tool_executor.py",
+        "tero/tools.py",
+        "tero/storage.py",
+        "tero/changes.py",
+        "tero/session.py",
+        "tero/tool_batch.py",
+        "tero/agent_loop.py",
+        "tero/context.py",
+        "tero/cli.py",
+        "tero/repo_map.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/tool_executor.py",
+          "line": 42,
+          "end_line": 45,
+          "kind": "method",
+          "qualified_name": "ToolResult.recovery",
+          "score": 0.62,
+          "lexical_score": 1.0,
+          "graph_score": 0,
+          "reasons": [
+            "name:recovery",
+            "symbol:tool",
+            "path:tool",
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 34,
+          "end_line": 48,
+          "kind": "class",
+          "qualified_name": "ToolResult",
+          "score": 0.396863,
+          "lexical_score": 0.607843,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:tool",
+            "path:tool",
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 88,
+          "end_line": 107,
+          "kind": "function",
+          "qualified_name": "tool_schemas",
+          "score": 0.275294,
+          "lexical_score": 0.411765,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.263137,
+          "lexical_score": 0.392157,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.263137,
+          "lexical_score": 0.392157,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file",
+            "symbol:interrupted"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 69,
+          "end_line": 78,
+          "kind": "method",
+          "qualified_name": "Session.pending",
+          "score": 0.243137,
+          "lexical_score": 0.392157,
+          "graph_score": 0,
+          "reasons": [
+            "name:pending"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 716,
+          "end_line": 717,
+          "kind": "function",
+          "qualified_name": "ToolExecutor._files.fail",
+          "score": 0.396863,
+          "lexical_score": 0.607843,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file",
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/tool_batch.py",
+          "line": 11,
+          "end_line": 76,
+          "kind": "function",
+          "qualified_name": "execute_batch",
+          "score": 0.190196,
+          "lexical_score": 0.27451,
+          "graph_score": 0,
+          "reasons": [
+            "path:tool",
+            "signature:calls"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 47,
+          "end_line": 48,
+          "kind": "method",
+          "qualified_name": "ToolResult.to_dict",
+          "score": 0.376863,
+          "lexical_score": 0.607843,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:tool",
+            "path:tool",
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.243137,
+          "lexical_score": 0.392157,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.178039,
+          "lexical_score": 0.254902,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:mutation",
+            "signature:receipt"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 711,
+          "end_line": 735,
+          "kind": "method",
+          "qualified_name": "ToolExecutor._files",
+          "score": 0.376863,
+          "lexical_score": 0.607843,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file",
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.243137,
+          "lexical_score": 0.392157,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 48,
+          "end_line": 49,
+          "kind": "class",
+          "qualified_name": "ContextTooLarge",
+          "score": 0.141569,
+          "lexical_score": 0.196078,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:tool"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.141569,
+          "lexical_score": 0.196078,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 207,
+          "end_line": 211,
+          "kind": "class",
+          "qualified_name": "ParsedFile",
+          "score": 0.141569,
+          "lexical_score": 0.196078,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 242,
+          "end_line": 266,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.__init__",
+          "score": 0.328235,
+          "lexical_score": 0.529412,
+          "graph_score": 0,
+          "reasons": [
+            "signature:trace",
+            "symbol:tool",
+            "path:tool",
+            "signature:mutation"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 6,
+          "end_line": 7,
+          "kind": "class",
+          "qualified_name": "Args",
+          "score": 0.153725,
+          "lexical_score": 0.215686,
+          "graph_score": 0,
+          "reasons": [
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 21,
+          "end_line": 34,
+          "kind": "class",
+          "qualified_name": "RunResult",
+          "score": 0.141569,
+          "lexical_score": 0.196078,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 613,
+          "end_line": 686,
+          "kind": "method",
+          "qualified_name": "ToolExecutor._publish",
+          "score": 0.291765,
+          "lexical_score": 0.470588,
+          "graph_score": 0,
+          "reasons": [
+            "signature:after",
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 10,
+          "end_line": 13,
+          "kind": "class",
+          "qualified_name": "ListArgs",
+          "score": 0.153725,
+          "lexical_score": 0.215686,
+          "graph_score": 0,
+          "reasons": [
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 122,
+          "end_line": 161,
+          "kind": "method",
+          "qualified_name": "Session.observe_result",
+          "score": 0.121569,
+          "lexical_score": 0.196078,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 557,
+          "end_line": 664,
+          "kind": "method",
+          "qualified_name": "RepoMap._parse_file",
+          "score": 0.121569,
+          "lexical_score": 0.196078,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 307,
+          "end_line": 349,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.finish",
+          "score": 0.291765,
+          "lexical_score": 0.470588,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:tool",
+            "path:tool",
+            "signature:result"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "recovery",
+    "variant": "repomap",
+    "query": "Trace recovery after a file replacement succeeds but the tool result was not saved.\nClose pending interrupted calls without automatically replaying them.\nCompare current file contents with the saved mutation receipt.",
+    "expected_files": [
+      "tero/changes.py",
+      "tero/session.py"
+    ],
+    "top5_files": [
+      "tero/tool_executor.py",
+      "tero/tools.py",
+      "tero/storage.py",
+      "tero/session.py",
+      "tero/changes.py"
+    ],
+    "file_hits": 2,
+    "file_total": 2,
+    "expected_symbols": [
+      [
+        "tero/changes.py",
+        "observe_interrupted_file"
+      ],
+      [
+        "tero/session.py",
+        "recover"
+      ]
+    ],
+    "symbol_hits": 1,
+    "symbol_total": 2,
+    "missing_symbols": [
+      [
+        "tero/session.py",
+        "recover"
+      ]
+    ],
+    "build_ms": 33.55666701099835,
+    "median_query_render_ms": 5.7911249896278605,
+    "tokens": 510,
+    "details": {
+      "query": "Trace recovery after a file replacement succeeds but the tool result was not saved.\nClose pending interrupted calls without automatically replaying them.\nCompare current file contents with the saved mutation receipt.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/tool_executor.py",
+        "tero/tools.py",
+        "tero/storage.py",
+        "tero/session.py",
+        "tero/changes.py",
+        "tero/tool_batch.py",
+        "tero/agent_loop.py",
+        "tero/execution.py",
+        "tero/repo_map.py",
+        "tero/completion.py",
+        "tero/context.py",
+        "tero/cli.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/tool_executor.py",
+          "line": 34,
+          "end_line": 48,
+          "kind": "class",
+          "qualified_name": "ToolResult",
+          "score": 0.715879,
+          "lexical_score": 0.607843,
+          "graph_score": 0.886157,
+          "reasons": [
+            "symbol:tool",
+            "path:tool",
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 6,
+          "end_line": 7,
+          "kind": "class",
+          "qualified_name": "Args",
+          "score": 0.513725,
+          "lexical_score": 0.215686,
+          "graph_score": 1.0,
+          "reasons": [
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 42,
+          "end_line": 45,
+          "kind": "method",
+          "qualified_name": "ToolResult.recovery",
+          "score": 0.686331,
+          "lexical_score": 1.0,
+          "graph_score": 0.184253,
+          "reasons": [
+            "name:recovery",
+            "symbol:tool",
+            "path:tool",
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.373924,
+          "lexical_score": 0.392157,
+          "graph_score": 0.363297,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 178,
+          "end_line": 181,
+          "kind": "method",
+          "qualified_name": "SessionStore.path",
+          "score": 0.351242,
+          "lexical_score": 0.0,
+          "graph_score": 0.975672,
+          "reasons": []
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.326503,
+          "lexical_score": 0.392157,
+          "graph_score": 0.176016,
+          "reasons": [
+            "symbol:file",
+            "symbol:interrupted"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 51,
+          "end_line": 209,
+          "kind": "function",
+          "qualified_name": "recovery_for",
+          "score": 0.542774,
+          "lexical_score": 0.411765,
+          "graph_score": 0.742999,
+          "reasons": [
+            "symbol:recovery",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/tool_batch.py",
+          "line": 11,
+          "end_line": 76,
+          "kind": "function",
+          "qualified_name": "execute_batch",
+          "score": 0.253294,
+          "lexical_score": 0.27451,
+          "graph_score": 0.175273,
+          "reasons": [
+            "path:tool",
+            "signature:calls"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 711,
+          "end_line": 735,
+          "kind": "method",
+          "qualified_name": "ToolExecutor._files",
+          "score": 0.499657,
+          "lexical_score": 0.607843,
+          "graph_score": 0.341094,
+          "reasons": [
+            "symbol:file",
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.232378,
+          "lexical_score": 0.254902,
+          "graph_score": 0.150941,
+          "reasons": [
+            "symbol:mutation",
+            "signature:receipt"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 88,
+          "end_line": 107,
+          "kind": "function",
+          "qualified_name": "tool_schemas",
+          "score": 0.312528,
+          "lexical_score": 0.411765,
+          "graph_score": 0.103427,
+          "reasons": [
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.299472,
+          "lexical_score": 0.392157,
+          "graph_score": 0.100929,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 24,
+          "end_line": 30,
+          "kind": "class",
+          "qualified_name": "ToolError",
+          "score": 0.498088,
+          "lexical_score": 0.411765,
+          "graph_score": 0.618872,
+          "reasons": [
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 16,
+          "end_line": 20,
+          "kind": "method",
+          "qualified_name": "Budget.check",
+          "score": 0.203806,
+          "lexical_score": 0.0,
+          "graph_score": 0.566127,
+          "reasons": []
+        },
+        {
+          "path": "tero/session.py",
+          "line": 69,
+          "end_line": 78,
+          "kind": "method",
+          "qualified_name": "Session.pending",
+          "score": 0.268401,
+          "lexical_score": 0.392157,
+          "graph_score": 0.070177,
+          "reasons": [
+            "name:pending"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 67,
+          "end_line": 86,
+          "kind": "function",
+          "qualified_name": "recovery_for.advice",
+          "score": 0.489906,
+          "lexical_score": 0.411765,
+          "graph_score": 0.596144,
+          "reasons": [
+            "symbol:recovery",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 557,
+          "end_line": 664,
+          "kind": "method",
+          "qualified_name": "RepoMap._parse_file",
+          "score": 0.175844,
+          "lexical_score": 0.196078,
+          "graph_score": 0.150764,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/completion.py",
+          "line": 8,
+          "end_line": 118,
+          "kind": "function",
+          "qualified_name": "check_completion",
+          "score": 0.163522,
+          "lexical_score": 0.0,
+          "graph_score": 0.398671,
+          "reasons": []
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.276385,
+          "lexical_score": 0.392157,
+          "graph_score": 0.092354,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 48,
+          "end_line": 49,
+          "kind": "class",
+          "qualified_name": "ContextTooLarge",
+          "score": 0.161899,
+          "lexical_score": 0.196078,
+          "graph_score": 0.056472,
+          "reasons": [
+            "symbol:tool"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.156917,
+          "lexical_score": 0.196078,
+          "graph_score": 0.042633,
+          "reasons": [
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 47,
+          "end_line": 48,
+          "kind": "method",
+          "qualified_name": "ToolResult.to_dict",
+          "score": 0.477187,
+          "lexical_score": 0.607843,
+          "graph_score": 0.278678,
+          "reasons": [
+            "symbol:tool",
+            "path:tool",
+            "symbol:result"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 268,
+          "end_line": 279,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.resolve",
+          "score": 0.452345,
+          "lexical_score": 0.411765,
+          "graph_score": 0.547363,
+          "reasons": [
+            "symbol:tool",
+            "path:tool"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.168976,
+          "lexical_score": 0.0,
+          "graph_score": 0.469379,
+          "reasons": []
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "verification",
+    "variant": "lexical",
+    "query": "Trace how a premature final answer is checked and failed verification returns to repair.\nExecute configured verification and recheck the tested file state.\nFeed a blocked completion back into the main model loop.\nObserve workspace changes around command execution.",
+    "expected_files": [
+      "tero/agent_loop.py",
+      "tero/completion.py",
+      "tero/tool_executor.py"
+    ],
+    "top5_files": [
+      "tero/changes.py",
+      "tero/execution.py",
+      "tero/completion.py",
+      "tero/commands.py",
+      "tero/agent_loop.py"
+    ],
+    "file_hits": 2,
+    "file_total": 3,
+    "expected_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/completion.py",
+        "check_completion"
+      ],
+      [
+        "tero/tool_executor.py",
+        "observe_command"
+      ]
+    ],
+    "symbol_hits": 3,
+    "symbol_total": 3,
+    "missing_symbols": [],
+    "build_ms": 34.92954099783674,
+    "median_query_render_ms": 2.597083992441185,
+    "tokens": 530,
+    "details": {
+      "query": "Trace how a premature final answer is checked and failed verification returns to repair.\nExecute configured verification and recheck the tested file state.\nFeed a blocked completion back into the main model loop.\nObserve workspace changes around command execution.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/changes.py",
+        "tero/execution.py",
+        "tero/completion.py",
+        "tero/commands.py",
+        "tero/agent_loop.py",
+        "tero/storage.py",
+        "tero/cli.py",
+        "tero/tool_executor.py",
+        "tero/tool_batch.py",
+        "tero/session.py",
+        "tero/repo_map.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.64,
+          "lexical_score": 1.0,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file",
+            "symbol:observe",
+            "path:changes"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 7,
+          "end_line": 8,
+          "kind": "class",
+          "qualified_name": "ExecutionStopped",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:execution",
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/completion.py",
+          "line": 8,
+          "end_line": 118,
+          "kind": "function",
+          "qualified_name": "check_completion",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:completion",
+            "path:completion"
+          ]
+        },
+        {
+          "path": "tero/commands.py",
+          "line": 37,
+          "end_line": 127,
+          "kind": "function",
+          "qualified_name": "run_command",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:command",
+            "path:command"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 37,
+          "end_line": 411,
+          "kind": "class",
+          "qualified_name": "AgentLoop",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.42,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 99,
+          "end_line": 186,
+          "kind": "function",
+          "qualified_name": "main",
+          "score": 0.42,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:main"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 297,
+          "end_line": 305,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.execute",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:execute"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 22,
+          "end_line": 25,
+          "kind": "method",
+          "qualified_name": "Budget.remaining",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:main",
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 769,
+          "end_line": 823,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.observe_command",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:observe",
+            "symbol:command"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 159,
+          "end_line": 162,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.start",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tool_batch.py",
+          "line": 11,
+          "end_line": 76,
+          "kind": "function",
+          "qualified_name": "execute_batch",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:execute"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 15,
+          "end_line": 16,
+          "kind": "function",
+          "qualified_name": "new_verification",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:verification"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 207,
+          "end_line": 211,
+          "kind": "class",
+          "qualified_name": "ParsedFile",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 38,
+          "end_line": 39,
+          "kind": "method",
+          "qualified_name": "AgentLoop.__init__",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 11,
+          "end_line": 71,
+          "kind": "function",
+          "qualified_name": "build_task_diff",
+          "score": 0.24,
+          "lexical_score": 0.354839,
+          "graph_score": 0,
+          "reasons": [
+            "path:changes"
+          ]
+        },
+        {
+          "path": "tero/commands.py",
+          "line": 29,
+          "end_line": 34,
+          "kind": "function",
+          "qualified_name": "stop_process",
+          "score": 0.24,
+          "lexical_score": 0.354839,
+          "graph_score": 0,
+          "reasons": [
+            "path:command"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 19,
+          "end_line": 27,
+          "kind": "function",
+          "qualified_name": "new_loop_control",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:how"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 311,
+          "end_line": 397,
+          "kind": "method",
+          "qualified_name": "AgentLoop._track_failure",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "verification",
+    "variant": "repomap",
+    "query": "Trace how a premature final answer is checked and failed verification returns to repair.\nExecute configured verification and recheck the tested file state.\nFeed a blocked completion back into the main model loop.\nObserve workspace changes around command execution.",
+    "expected_files": [
+      "tero/agent_loop.py",
+      "tero/completion.py",
+      "tero/tool_executor.py"
+    ],
+    "top5_files": [
+      "tero/changes.py",
+      "tero/agent_loop.py",
+      "tero/completion.py",
+      "tero/execution.py",
+      "tero/storage.py"
+    ],
+    "file_hits": 2,
+    "file_total": 3,
+    "expected_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/completion.py",
+        "check_completion"
+      ],
+      [
+        "tero/tool_executor.py",
+        "observe_command"
+      ]
+    ],
+    "symbol_hits": 3,
+    "symbol_total": 3,
+    "missing_symbols": [],
+    "build_ms": 34.01070799736772,
+    "median_query_render_ms": 5.847665990586393,
+    "tokens": 535,
+    "details": {
+      "query": "Trace how a premature final answer is checked and failed verification returns to repair.\nExecute configured verification and recheck the tested file state.\nFeed a blocked completion back into the main model loop.\nObserve workspace changes around command execution.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/changes.py",
+        "tero/agent_loop.py",
+        "tero/completion.py",
+        "tero/execution.py",
+        "tero/storage.py",
+        "tero/commands.py",
+        "tero/cli.py",
+        "tero/tool_executor.py",
+        "tero/session.py",
+        "tero/tool_batch.py",
+        "tero/repo_map.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.744044,
+          "lexical_score": 1.0,
+          "graph_score": 0.289011,
+          "reasons": [
+            "symbol:file",
+            "symbol:observe",
+            "path:changes"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.726422,
+          "lexical_score": 0.677419,
+          "graph_score": 0.851173,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/completion.py",
+          "line": 8,
+          "end_line": 118,
+          "kind": "function",
+          "qualified_name": "check_completion",
+          "score": 0.619142,
+          "lexical_score": 0.677419,
+          "graph_score": 0.497617,
+          "reasons": [
+            "symbol:completion",
+            "path:completion"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 7,
+          "end_line": 8,
+          "kind": "class",
+          "qualified_name": "ExecutionStopped",
+          "score": 0.617314,
+          "lexical_score": 0.677419,
+          "graph_score": 0.49254,
+          "reasons": [
+            "symbol:execution",
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.61308,
+          "lexical_score": 0.645161,
+          "graph_score": 0.59189,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/commands.py",
+          "line": 37,
+          "end_line": 127,
+          "kind": "function",
+          "qualified_name": "run_command",
+          "score": 0.596896,
+          "lexical_score": 0.677419,
+          "graph_score": 0.435823,
+          "reasons": [
+            "symbol:command",
+            "path:command"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 99,
+          "end_line": 186,
+          "kind": "function",
+          "qualified_name": "main",
+          "score": 0.558845,
+          "lexical_score": 0.645161,
+          "graph_score": 0.385681,
+          "reasons": [
+            "name:main"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 769,
+          "end_line": 823,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.observe_command",
+          "score": 0.463517,
+          "lexical_score": 0.645161,
+          "graph_score": 0.176437,
+          "reasons": [
+            "symbol:observe",
+            "symbol:command"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 37,
+          "end_line": 411,
+          "kind": "class",
+          "qualified_name": "AgentLoop",
+          "score": 0.54042,
+          "lexical_score": 0.677419,
+          "graph_score": 0.278945,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 16,
+          "end_line": 20,
+          "kind": "method",
+          "qualified_name": "Budget.check",
+          "score": 0.516799,
+          "lexical_score": 0.354839,
+          "graph_score": 0.824441,
+          "reasons": [
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 178,
+          "end_line": 181,
+          "kind": "method",
+          "qualified_name": "SessionStore.path",
+          "score": 0.36,
+          "lexical_score": 0.0,
+          "graph_score": 1.0,
+          "reasons": []
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.47863,
+          "lexical_score": 0.645161,
+          "graph_score": 0.162862,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 297,
+          "end_line": 305,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.execute",
+          "score": 0.444623,
+          "lexical_score": 0.645161,
+          "graph_score": 0.123952,
+          "reasons": [
+            "name:execute"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 22,
+          "end_line": 25,
+          "kind": "method",
+          "qualified_name": "Budget.remaining",
+          "score": 0.505838,
+          "lexical_score": 0.677419,
+          "graph_score": 0.238439,
+          "reasons": [
+            "symbol:main",
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.502113,
+          "lexical_score": 0.677419,
+          "graph_score": 0.172537,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/tool_batch.py",
+          "line": 11,
+          "end_line": 76,
+          "kind": "function",
+          "qualified_name": "execute_batch",
+          "score": 0.290752,
+          "lexical_score": 0.322581,
+          "graph_score": 0.196532,
+          "reasons": [
+            "symbol:execute"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 557,
+          "end_line": 664,
+          "kind": "method",
+          "qualified_name": "RepoMap._parse_file",
+          "score": 0.27609,
+          "lexical_score": 0.322581,
+          "graph_score": 0.211361,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.447296,
+          "lexical_score": 0.645161,
+          "graph_score": 0.131377,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 159,
+          "end_line": 162,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.start",
+          "score": 0.496237,
+          "lexical_score": 0.677419,
+          "graph_score": 0.156214,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/commands.py",
+          "line": 29,
+          "end_line": 34,
+          "kind": "function",
+          "qualified_name": "stop_process",
+          "score": 0.316314,
+          "lexical_score": 0.354839,
+          "graph_score": 0.211983,
+          "reasons": [
+            "path:command"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 11,
+          "end_line": 71,
+          "kind": "function",
+          "qualified_name": "build_task_diff",
+          "score": 0.299324,
+          "lexical_score": 0.354839,
+          "graph_score": 0.164789,
+          "reasons": [
+            "path:changes"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 399,
+          "end_line": 411,
+          "kind": "method",
+          "qualified_name": "AgentLoop._delegate",
+          "score": 0.491652,
+          "lexical_score": 0.677419,
+          "graph_score": 0.199033,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 19,
+          "end_line": 27,
+          "kind": "function",
+          "qualified_name": "new_loop_control",
+          "score": 0.254901,
+          "lexical_score": 0.322581,
+          "graph_score": 0.096948,
+          "reasons": [
+            "symbol:loop"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.248429,
+          "lexical_score": 0.322581,
+          "graph_score": 0.078968,
+          "reasons": [
+            "symbol:how"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "parallel_reads",
+    "variant": "lexical",
+    "query": "Trace how a model response containing multiple independent reads is executed.\nGroup consecutive reads and dispatch bounded parallel execution.\nValidate each call and enforce permissions before dispatch.\nPersist each call entering execution and save its results in the parent loop.",
+    "expected_files": [
+      "tero/agent_loop.py",
+      "tero/tool_batch.py",
+      "tero/tool_executor.py"
+    ],
+    "top5_files": [
+      "tero/agent_loop.py",
+      "tero/provider.py",
+      "tero/execution.py",
+      "tero/storage.py",
+      "tero/memory.py"
+    ],
+    "file_hits": 1,
+    "file_total": 3,
+    "expected_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/tool_batch.py",
+        "execute_batch"
+      ],
+      [
+        "tero/tool_executor.py",
+        "admit"
+      ]
+    ],
+    "symbol_hits": 1,
+    "symbol_total": 3,
+    "missing_symbols": [
+      [
+        "tero/tool_batch.py",
+        "execute_batch"
+      ],
+      [
+        "tero/tool_executor.py",
+        "admit"
+      ]
+    ],
+    "build_ms": 33.56583300046623,
+    "median_query_render_ms": 2.519542002119124,
+    "tokens": 589,
+    "details": {
+      "query": "Trace how a model response containing multiple independent reads is executed.\nGroup consecutive reads and dispatch bounded parallel execution.\nValidate each call and enforce permissions before dispatch.\nPersist each call entering execution and save its results in the parent loop.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/agent_loop.py",
+        "tero/provider.py",
+        "tero/execution.py",
+        "tero/storage.py",
+        "tero/memory.py",
+        "tero/session.py",
+        "tero/cli.py",
+        "tero/repo_map.py",
+        "tero/context.py",
+        "tero/tool_executor.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.64,
+          "lexical_score": 1.0,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:save",
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 208,
+          "end_line": 216,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._read_bounded",
+          "score": 0.46,
+          "lexical_score": 0.741935,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:response",
+            "signature:response",
+            "symbol:bounded"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 7,
+          "end_line": 8,
+          "kind": "class",
+          "qualified_name": "ExecutionStopped",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:execution",
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.42,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 56,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "MemoryStore.save",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 183,
+          "end_line": 184,
+          "kind": "method",
+          "qualified_name": "SessionStore.save",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 159,
+          "end_line": 162,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.start",
+          "score": 0.5,
+          "lexical_score": 0.774194,
+          "graph_score": 0,
+          "reasons": [
+            "signature:call",
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 37,
+          "end_line": 411,
+          "kind": "class",
+          "qualified_name": "AgentLoop",
+          "score": 0.44,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.4,
+          "lexical_score": 0.645161,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:how"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 693,
+          "end_line": 697,
+          "kind": "function",
+          "qualified_name": "_call_target",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:call"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 38,
+          "end_line": 39,
+          "kind": "method",
+          "qualified_name": "AgentLoop.__init__",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 73,
+          "end_line": 79,
+          "kind": "method",
+          "qualified_name": "ContextManager.fits",
+          "score": 0.2,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:its"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 28,
+          "end_line": 30,
+          "kind": "method",
+          "qualified_name": "ResponsesClient.__init__",
+          "score": 0.26,
+          "lexical_score": 0.419355,
+          "graph_score": 0,
+          "reasons": [
+            "signature:trace",
+            "symbol:response"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 11,
+          "end_line": 32,
+          "kind": "class",
+          "qualified_name": "Budget",
+          "score": 0.24,
+          "lexical_score": 0.354839,
+          "graph_score": 0,
+          "reasons": [
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 19,
+          "end_line": 27,
+          "kind": "function",
+          "qualified_name": "new_loop_control",
+          "score": 0.22,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 219,
+          "end_line": 273,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._read_events",
+          "score": 0.26,
+          "lexical_score": 0.419355,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:response",
+            "signature:response"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 311,
+          "end_line": 397,
+          "kind": "method",
+          "qualified_name": "AgentLoop._track_failure",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 65,
+          "end_line": 91,
+          "kind": "method",
+          "qualified_name": "MemoryStore.recall",
+          "score": 0.2,
+          "lexical_score": 0.322581,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:call"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 399,
+          "end_line": 411,
+          "kind": "method",
+          "qualified_name": "AgentLoop._delegate",
+          "score": 0.42,
+          "lexical_score": 0.677419,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 12,
+          "end_line": 14,
+          "kind": "method",
+          "qualified_name": "Budget.__init__",
+          "score": 0.22,
+          "lexical_score": 0.354839,
+          "graph_score": 0,
+          "reasons": [
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 242,
+          "end_line": 266,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.__init__",
+          "score": 0.12,
+          "lexical_score": 0.193548,
+          "graph_score": 0,
+          "reasons": [
+            "signature:trace",
+            "signature:save"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "parallel_reads",
+    "variant": "repomap",
+    "query": "Trace how a model response containing multiple independent reads is executed.\nGroup consecutive reads and dispatch bounded parallel execution.\nValidate each call and enforce permissions before dispatch.\nPersist each call entering execution and save its results in the parent loop.",
+    "expected_files": [
+      "tero/agent_loop.py",
+      "tero/tool_batch.py",
+      "tero/tool_executor.py"
+    ],
+    "top5_files": [
+      "tero/agent_loop.py",
+      "tero/storage.py",
+      "tero/execution.py",
+      "tero/provider.py",
+      "tero/memory.py"
+    ],
+    "file_hits": 1,
+    "file_total": 3,
+    "expected_symbols": [
+      [
+        "tero/agent_loop.py",
+        "run"
+      ],
+      [
+        "tero/tool_batch.py",
+        "execute_batch"
+      ],
+      [
+        "tero/tool_executor.py",
+        "admit"
+      ]
+    ],
+    "symbol_hits": 1,
+    "symbol_total": 3,
+    "missing_symbols": [
+      [
+        "tero/tool_batch.py",
+        "execute_batch"
+      ],
+      [
+        "tero/tool_executor.py",
+        "admit"
+      ]
+    ],
+    "build_ms": 33.433167001931,
+    "median_query_render_ms": 5.885624996153638,
+    "tokens": 553,
+    "details": {
+      "query": "Trace how a model response containing multiple independent reads is executed.\nGroup consecutive reads and dispatch bounded parallel execution.\nValidate each call and enforce permissions before dispatch.\nPersist each call entering execution and save its results in the parent loop.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/agent_loop.py",
+        "tero/storage.py",
+        "tero/execution.py",
+        "tero/provider.py",
+        "tero/memory.py",
+        "tero/session.py",
+        "tero/repo_map.py",
+        "tero/context.py",
+        "tero/cli.py",
+        "tero/tool_executor.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.78,
+          "lexical_score": 0.677419,
+          "graph_score": 1.0,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.643966,
+          "lexical_score": 0.645161,
+          "graph_score": 0.677685,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 7,
+          "end_line": 8,
+          "kind": "class",
+          "qualified_name": "ExecutionStopped",
+          "score": 0.584925,
+          "lexical_score": 0.677419,
+          "graph_score": 0.40257,
+          "reasons": [
+            "symbol:execution",
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.732129,
+          "lexical_score": 1.0,
+          "graph_score": 0.255914,
+          "reasons": [
+            "symbol:save",
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 208,
+          "end_line": 216,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._read_bounded",
+          "score": 0.538729,
+          "lexical_score": 0.741935,
+          "graph_score": 0.21869,
+          "reasons": [
+            "symbol:response",
+            "signature:response",
+            "symbol:bounded"
+          ]
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 56,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "MemoryStore.save",
+          "score": 0.52853,
+          "lexical_score": 0.645161,
+          "graph_score": 0.357028,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 183,
+          "end_line": 184,
+          "kind": "method",
+          "qualified_name": "SessionStore.save",
+          "score": 0.525573,
+          "lexical_score": 0.645161,
+          "graph_score": 0.348813,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 16,
+          "end_line": 20,
+          "kind": "method",
+          "qualified_name": "Budget.check",
+          "score": 0.50955,
+          "lexical_score": 0.354839,
+          "graph_score": 0.804306,
+          "reasons": [
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.484345,
+          "lexical_score": 0.645161,
+          "graph_score": 0.178735,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 159,
+          "end_line": 162,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.start",
+          "score": 0.572968,
+          "lexical_score": 0.774194,
+          "graph_score": 0.202689,
+          "reasons": [
+            "signature:call",
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 37,
+          "end_line": 411,
+          "kind": "class",
+          "qualified_name": "AgentLoop",
+          "score": 0.551513,
+          "lexical_score": 0.677419,
+          "graph_score": 0.309758,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.451324,
+          "lexical_score": 0.645161,
+          "graph_score": 0.142567,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 50,
+          "end_line": 205,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._request_once",
+          "score": 0.352088,
+          "lexical_score": 0.322581,
+          "graph_score": 0.422468,
+          "reasons": [
+            "symbol:response"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 693,
+          "end_line": 697,
+          "kind": "function",
+          "qualified_name": "_call_target",
+          "score": 0.249677,
+          "lexical_score": 0.322581,
+          "graph_score": 0.082435,
+          "reasons": [
+            "symbol:call"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 73,
+          "end_line": 79,
+          "kind": "method",
+          "qualified_name": "ContextManager.fits",
+          "score": 0.247798,
+          "lexical_score": 0.322581,
+          "graph_score": 0.132772,
+          "reasons": [
+            "symbol:its"
+          ]
+        },
+        {
+          "path": "tero/cli.py",
+          "line": 83,
+          "end_line": 96,
+          "kind": "function",
+          "qualified_name": "show_result",
+          "score": 0.244676,
+          "lexical_score": 0.322581,
+          "graph_score": 0.068543,
+          "reasons": [
+            "symbol:how"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 11,
+          "end_line": 32,
+          "kind": "class",
+          "qualified_name": "Budget",
+          "score": 0.367226,
+          "lexical_score": 0.354839,
+          "graph_score": 0.353405,
+          "reasons": [
+            "path:execution"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 178,
+          "end_line": 181,
+          "kind": "method",
+          "qualified_name": "SessionStore.path",
+          "score": 0.288805,
+          "lexical_score": 0.0,
+          "graph_score": 0.802236,
+          "reasons": []
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 399,
+          "end_line": 411,
+          "kind": "method",
+          "qualified_name": "AgentLoop._delegate",
+          "score": 0.499106,
+          "lexical_score": 0.677419,
+          "graph_score": 0.219739,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 89,
+          "end_line": 94,
+          "kind": "function",
+          "qualified_name": "ResponsesClient._request_once.shutdown",
+          "score": 0.338513,
+          "lexical_score": 0.322581,
+          "graph_score": 0.329202,
+          "reasons": [
+            "symbol:response"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 34,
+          "end_line": 48,
+          "kind": "class",
+          "qualified_name": "ToolResult",
+          "score": 0.188579,
+          "lexical_score": 0.0,
+          "graph_score": 0.468276,
+          "reasons": []
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 65,
+          "end_line": 91,
+          "kind": "method",
+          "qualified_name": "MemoryStore.recall",
+          "score": 0.241571,
+          "lexical_score": 0.322581,
+          "graph_score": 0.115474,
+          "reasons": [
+            "symbol:call"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 311,
+          "end_line": 397,
+          "kind": "method",
+          "qualified_name": "AgentLoop._track_failure",
+          "score": 0.48478,
+          "lexical_score": 0.677419,
+          "graph_score": 0.179945,
+          "reasons": [
+            "symbol:loop",
+            "path:loop"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 219,
+          "end_line": 273,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._read_events",
+          "score": 0.331954,
+          "lexical_score": 0.419355,
+          "graph_score": 0.199873,
+          "reasons": [
+            "symbol:response",
+            "signature:response"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "file_edit",
+    "variant": "lexical",
+    "query": "Trace an exact text edit from original-file preservation to a final task diff.\nSave the preimage and mutation receipt before replacing the file.\nBuild a task diff using the original preimage and current disk contents.",
+    "expected_files": [
+      "tero/changes.py",
+      "tero/tool_executor.py"
+    ],
+    "top5_files": [
+      "tero/changes.py",
+      "tero/context.py",
+      "tero/agent_loop.py",
+      "tero/storage.py",
+      "tero/memory.py"
+    ],
+    "file_hits": 1,
+    "file_total": 2,
+    "expected_symbols": [
+      [
+        "tero/changes.py",
+        "build_task_diff"
+      ],
+      [
+        "tero/tool_executor.py",
+        "_publish"
+      ]
+    ],
+    "symbol_hits": 1,
+    "symbol_total": 2,
+    "missing_symbols": [
+      [
+        "tero/tool_executor.py",
+        "_publish"
+      ]
+    ],
+    "build_ms": 33.53579199756496,
+    "median_query_render_ms": 2.255375002278015,
+    "tokens": 519,
+    "details": {
+      "query": "Trace an exact text edit from original-file preservation to a final task diff.\nSave the preimage and mutation receipt before replacing the file.\nBuild a task diff using the original preimage and current disk contents.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/changes.py",
+        "tero/context.py",
+        "tero/agent_loop.py",
+        "tero/storage.py",
+        "tero/memory.py",
+        "tero/session.py",
+        "tero/provider.py",
+        "tero/tools.py",
+        "tero/repo_map.py",
+        "tero/tool_executor.py",
+        "tero/artifacts.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/changes.py",
+          "line": 11,
+          "end_line": 71,
+          "kind": "function",
+          "qualified_name": "build_task_diff",
+          "score": 0.64,
+          "lexical_score": 1.0,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:task",
+            "symbol:diff",
+            "symbol:build"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 424,
+          "end_line": 429,
+          "kind": "function",
+          "qualified_name": "ContextManager._with_repo_map.message",
+          "score": 0.516,
+          "lexical_score": 0.8,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text",
+            "signature:text"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.495333,
+          "lexical_score": 0.766667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:save",
+            "symbol:mutation",
+            "signature:receipt"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.433333,
+          "lexical_score": 0.666667,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 56,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "MemoryStore.save",
+          "score": 0.413333,
+          "lexical_score": 0.666667,
+          "graph_score": 0,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 183,
+          "end_line": 184,
+          "kind": "method",
+          "qualified_name": "SessionStore.save",
+          "score": 0.413333,
+          "lexical_score": 0.666667,
+          "graph_score": 0,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 48,
+          "end_line": 49,
+          "kind": "class",
+          "qualified_name": "ContextTooLarge",
+          "score": 0.454,
+          "lexical_score": 0.7,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.413333,
+          "lexical_score": 0.666667,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 58,
+          "end_line": 456,
+          "kind": "class",
+          "qualified_name": "ContextManager",
+          "score": 0.454,
+          "lexical_score": 0.7,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.413333,
+          "lexical_score": 0.666667,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 19,
+          "end_line": 20,
+          "kind": "class",
+          "qualified_name": "ContextOverflow",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 33,
+          "end_line": 36,
+          "kind": "class",
+          "qualified_name": "EditArgs",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:edit"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 207,
+          "end_line": 211,
+          "kind": "class",
+          "qualified_name": "ParsedFile",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 212,
+          "end_line": 222,
+          "kind": "function",
+          "qualified_name": "filesystem_failure_code",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 281,
+          "end_line": 286,
+          "kind": "function",
+          "qualified_name": "ContextManager.prepare.retain",
+          "score": 0.454,
+          "lexical_score": 0.7,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/artifacts.py",
+          "line": 37,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "ArtifactStore.write_text",
+          "score": 0.206667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 59,
+          "end_line": 67,
+          "kind": "method",
+          "qualified_name": "ContextManager.__init__",
+          "score": 0.434,
+          "lexical_score": 0.7,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 229,
+          "end_line": 238,
+          "kind": "function",
+          "qualified_name": "file_revision",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 303,
+          "end_line": 310,
+          "kind": "function",
+          "qualified_name": "response_text",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 667,
+          "end_line": 668,
+          "kind": "function",
+          "qualified_name": "_node_text",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 69,
+          "end_line": 71,
+          "kind": "method",
+          "qualified_name": "ContextManager.count",
+          "score": 0.434,
+          "lexical_score": 0.7,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 73,
+          "end_line": 79,
+          "kind": "method",
+          "qualified_name": "ContextManager.fits",
+          "score": 0.434,
+          "lexical_score": 0.7,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 716,
+          "end_line": 717,
+          "kind": "function",
+          "qualified_name": "ToolExecutor._files.fail",
+          "score": 0.226667,
+          "lexical_score": 0.333333,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:file"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "file_edit",
+    "variant": "repomap",
+    "query": "Trace an exact text edit from original-file preservation to a final task diff.\nSave the preimage and mutation receipt before replacing the file.\nBuild a task diff using the original preimage and current disk contents.",
+    "expected_files": [
+      "tero/changes.py",
+      "tero/tool_executor.py"
+    ],
+    "top5_files": [
+      "tero/context.py",
+      "tero/changes.py",
+      "tero/storage.py",
+      "tero/agent_loop.py",
+      "tero/memory.py"
+    ],
+    "file_hits": 1,
+    "file_total": 2,
+    "expected_symbols": [
+      [
+        "tero/changes.py",
+        "build_task_diff"
+      ],
+      [
+        "tero/tool_executor.py",
+        "_publish"
+      ]
+    ],
+    "symbol_hits": 1,
+    "symbol_total": 2,
+    "missing_symbols": [
+      [
+        "tero/tool_executor.py",
+        "_publish"
+      ]
+    ],
+    "build_ms": 33.455334007157944,
+    "median_query_render_ms": 5.714624989195727,
+    "tokens": 568,
+    "details": {
+      "query": "Trace an exact text edit from original-file preservation to a final task diff.\nSave the preimage and mutation receipt before replacing the file.\nBuild a task diff using the original preimage and current disk contents.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/context.py",
+        "tero/changes.py",
+        "tero/storage.py",
+        "tero/agent_loop.py",
+        "tero/memory.py",
+        "tero/session.py",
+        "tero/repo_map.py",
+        "tero/tool_executor.py",
+        "tero/provider.py",
+        "tero/tools.py",
+        "tero/artifacts.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/context.py",
+          "line": 216,
+          "end_line": 402,
+          "kind": "method",
+          "qualified_name": "ContextManager.prepare",
+          "score": 0.794,
+          "lexical_score": 0.7,
+          "graph_score": 1.0,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 11,
+          "end_line": 71,
+          "kind": "function",
+          "qualified_name": "build_task_diff",
+          "score": 0.709536,
+          "lexical_score": 1.0,
+          "graph_score": 0.193157,
+          "reasons": [
+            "symbol:task",
+            "symbol:diff",
+            "symbol:build"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.585927,
+          "lexical_score": 0.666667,
+          "graph_score": 0.479427,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 59,
+          "end_line": 66,
+          "kind": "function",
+          "qualified_name": "AgentLoop.run.save_mutation",
+          "score": 0.55253,
+          "lexical_score": 0.766667,
+          "graph_score": 0.158881,
+          "reasons": [
+            "symbol:save",
+            "symbol:mutation",
+            "signature:receipt"
+          ]
+        },
+        {
+          "path": "tero/memory.py",
+          "line": 56,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "MemoryStore.save",
+          "score": 0.497222,
+          "lexical_score": 0.666667,
+          "graph_score": 0.233023,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 183,
+          "end_line": 184,
+          "kind": "method",
+          "qualified_name": "SessionStore.save",
+          "score": 0.494961,
+          "lexical_score": 0.666667,
+          "graph_score": 0.226743,
+          "reasons": [
+            "name:save"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 69,
+          "end_line": 71,
+          "kind": "method",
+          "qualified_name": "ContextManager.count",
+          "score": 0.658769,
+          "lexical_score": 0.7,
+          "graph_score": 0.624359,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 404,
+          "end_line": 456,
+          "kind": "method",
+          "qualified_name": "ContextManager._with_repo_map",
+          "score": 0.636868,
+          "lexical_score": 0.7,
+          "graph_score": 0.563522,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.476202,
+          "lexical_score": 0.666667,
+          "graph_score": 0.11908,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 557,
+          "end_line": 664,
+          "kind": "method",
+          "qualified_name": "RepoMap._parse_file",
+          "score": 0.335044,
+          "lexical_score": 0.333333,
+          "graph_score": 0.356604,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 424,
+          "end_line": 429,
+          "kind": "function",
+          "qualified_name": "ContextManager._with_repo_map.message",
+          "score": 0.576232,
+          "lexical_score": 0.8,
+          "graph_score": 0.167312,
+          "reasons": [
+            "symbol:text",
+            "path:text",
+            "signature:text"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.453045,
+          "lexical_score": 0.666667,
+          "graph_score": 0.11031,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 229,
+          "end_line": 238,
+          "kind": "function",
+          "qualified_name": "file_revision",
+          "score": 0.264991,
+          "lexical_score": 0.333333,
+          "graph_score": 0.106457,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 303,
+          "end_line": 310,
+          "kind": "function",
+          "qualified_name": "response_text",
+          "score": 0.258879,
+          "lexical_score": 0.333333,
+          "graph_score": 0.089478,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 33,
+          "end_line": 36,
+          "kind": "class",
+          "qualified_name": "EditArgs",
+          "score": 0.248287,
+          "lexical_score": 0.333333,
+          "graph_score": 0.060055,
+          "reasons": [
+            "symbol:edit"
+          ]
+        },
+        {
+          "path": "tero/artifacts.py",
+          "line": 37,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "ArtifactStore.write_text",
+          "score": 0.23312,
+          "lexical_score": 0.333333,
+          "graph_score": 0.073481,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 103,
+          "end_line": 183,
+          "kind": "method",
+          "qualified_name": "ContextManager.items",
+          "score": 0.545854,
+          "lexical_score": 0.7,
+          "graph_score": 0.310706,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/repo_map.py",
+          "line": 667,
+          "end_line": 668,
+          "kind": "function",
+          "qualified_name": "_node_text",
+          "score": 0.277145,
+          "lexical_score": 0.333333,
+          "graph_score": 0.140217,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.266765,
+          "lexical_score": 0.333333,
+          "graph_score": 0.111385,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 82,
+          "end_line": 101,
+          "kind": "method",
+          "qualified_name": "ContextManager.unit",
+          "score": 0.543289,
+          "lexical_score": 0.7,
+          "graph_score": 0.303581,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 711,
+          "end_line": 735,
+          "kind": "method",
+          "qualified_name": "ToolExecutor._files",
+          "score": 0.261943,
+          "lexical_score": 0.333333,
+          "graph_score": 0.153544,
+          "reasons": [
+            "symbol:file"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 19,
+          "end_line": 20,
+          "kind": "class",
+          "qualified_name": "ContextOverflow",
+          "score": 0.255697,
+          "lexical_score": 0.333333,
+          "graph_score": 0.08064,
+          "reasons": [
+            "symbol:text"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 178,
+          "end_line": 181,
+          "kind": "method",
+          "qualified_name": "SessionStore.path",
+          "score": 0.238116,
+          "lexical_score": 0.0,
+          "graph_score": 0.661434,
+          "reasons": []
+        },
+        {
+          "path": "tero/context.py",
+          "line": 59,
+          "end_line": 67,
+          "kind": "method",
+          "qualified_name": "ContextManager.__init__",
+          "score": 0.539658,
+          "lexical_score": 0.7,
+          "graph_score": 0.293493,
+          "reasons": [
+            "symbol:text",
+            "path:text"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "timeout",
+    "variant": "lexical",
+    "query": "Trace cancellation and timeout of a running shell command.\nManage the shared deadline and cancellation flag.\nObserve deadline expiry while collecting process output.\nTerminate the process group and reap the process.",
+    "expected_files": [
+      "tero/commands.py",
+      "tero/execution.py"
+    ],
+    "top5_files": [
+      "tero/commands.py",
+      "tero/tool_executor.py",
+      "tero/storage.py",
+      "tero/context.py",
+      "tero/tools.py"
+    ],
+    "file_hits": 1,
+    "file_total": 2,
+    "expected_symbols": [
+      [
+        "tero/commands.py",
+        "run_command"
+      ],
+      [
+        "tero/commands.py",
+        "stop_process"
+      ],
+      [
+        "tero/execution.py",
+        "check"
+      ]
+    ],
+    "symbol_hits": 2,
+    "symbol_total": 3,
+    "missing_symbols": [
+      [
+        "tero/execution.py",
+        "check"
+      ]
+    ],
+    "build_ms": 33.24733300541993,
+    "median_query_render_ms": 2.116875009960495,
+    "tokens": 553,
+    "details": {
+      "query": "Trace cancellation and timeout of a running shell command.\nManage the shared deadline and cancellation flag.\nObserve deadline expiry while collecting process output.\nTerminate the process group and reap the process.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/commands.py",
+        "tero/tool_executor.py",
+        "tero/storage.py",
+        "tero/context.py",
+        "tero/tools.py",
+        "tero/changes.py",
+        "tero/session.py",
+        "tero/provider.py",
+        "tero/execution.py",
+        "tero/artifacts.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/commands.py",
+          "line": 37,
+          "end_line": 127,
+          "kind": "function",
+          "qualified_name": "run_command",
+          "score": 0.64,
+          "lexical_score": 1.0,
+          "graph_score": 0,
+          "reasons": [
+            "signature:timeout",
+            "symbol:command",
+            "path:command"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 769,
+          "end_line": 823,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.observe_command",
+          "score": 0.594167,
+          "lexical_score": 0.958333,
+          "graph_score": 0,
+          "reasons": [
+            "signature:timeout",
+            "symbol:command",
+            "symbol:observe"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.536667,
+          "lexical_score": 0.833333,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/commands.py",
+          "line": 29,
+          "end_line": 34,
+          "kind": "function",
+          "qualified_name": "stop_process",
+          "score": 0.5625,
+          "lexical_score": 0.875,
+          "graph_score": 0,
+          "reasons": [
+            "path:command",
+            "symbol:process"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.516667,
+          "lexical_score": 0.833333,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 73,
+          "end_line": 79,
+          "kind": "method",
+          "qualified_name": "ContextManager.fits",
+          "score": 0.335833,
+          "lexical_score": 0.541667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage",
+            "signature:output"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.516667,
+          "lexical_score": 0.833333,
+          "graph_score": 0,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 44,
+          "end_line": 46,
+          "kind": "class",
+          "qualified_name": "ShellArgs",
+          "score": 0.278333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:shell"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.278333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:observe"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 122,
+          "end_line": 161,
+          "kind": "method",
+          "qualified_name": "Session.observe_result",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:observe"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 58,
+          "end_line": 456,
+          "kind": "class",
+          "qualified_name": "ContextManager",
+          "score": 0.278333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 281,
+          "end_line": 286,
+          "kind": "function",
+          "qualified_name": "ContextManager.prepare.retain",
+          "score": 0.278333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 424,
+          "end_line": 429,
+          "kind": "function",
+          "qualified_name": "ContextManager._with_repo_map.message",
+          "score": 0.278333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 59,
+          "end_line": 67,
+          "kind": "method",
+          "qualified_name": "ContextManager.__init__",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 303,
+          "end_line": 310,
+          "kind": "function",
+          "qualified_name": "response_text",
+          "score": 0.0975,
+          "lexical_score": 0.125,
+          "graph_score": 0,
+          "reasons": [
+            "signature:output"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 69,
+          "end_line": 71,
+          "kind": "method",
+          "qualified_name": "ContextManager.count",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 82,
+          "end_line": 101,
+          "kind": "method",
+          "qualified_name": "ContextManager.unit",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 12,
+          "end_line": 14,
+          "kind": "method",
+          "qualified_name": "Budget.__init__",
+          "score": 0.0775,
+          "lexical_score": 0.125,
+          "graph_score": 0,
+          "reasons": [
+            "signature:deadline"
+          ]
+        },
+        {
+          "path": "tero/artifacts.py",
+          "line": 37,
+          "end_line": 57,
+          "kind": "method",
+          "qualified_name": "ArtifactStore.write_text",
+          "score": 0.0775,
+          "lexical_score": 0.125,
+          "graph_score": 0,
+          "reasons": [
+            "signature:output"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 103,
+          "end_line": 183,
+          "kind": "method",
+          "qualified_name": "ContextManager.items",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 185,
+          "end_line": 214,
+          "kind": "method",
+          "qualified_name": "ContextManager.summary_source",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 216,
+          "end_line": 402,
+          "kind": "method",
+          "qualified_name": "ContextManager.prepare",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 404,
+          "end_line": 456,
+          "kind": "method",
+          "qualified_name": "ContextManager._with_repo_map",
+          "score": 0.258333,
+          "lexical_score": 0.416667,
+          "graph_score": 0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 28,
+          "end_line": 30,
+          "kind": "method",
+          "qualified_name": "ResponsesClient.__init__",
+          "score": 0.0775,
+          "lexical_score": 0.125,
+          "graph_score": 0,
+          "reasons": [
+            "signature:trace"
+          ]
+        }
+      ],
+      "truncated": true
+    }
+  },
+  {
+    "case": "timeout",
+    "variant": "repomap",
+    "query": "Trace cancellation and timeout of a running shell command.\nManage the shared deadline and cancellation flag.\nObserve deadline expiry while collecting process output.\nTerminate the process group and reap the process.",
+    "expected_files": [
+      "tero/commands.py",
+      "tero/execution.py"
+    ],
+    "top5_files": [
+      "tero/commands.py",
+      "tero/storage.py",
+      "tero/tool_executor.py",
+      "tero/context.py",
+      "tero/changes.py"
+    ],
+    "file_hits": 1,
+    "file_total": 2,
+    "expected_symbols": [
+      [
+        "tero/commands.py",
+        "run_command"
+      ],
+      [
+        "tero/commands.py",
+        "stop_process"
+      ],
+      [
+        "tero/execution.py",
+        "check"
+      ]
+    ],
+    "symbol_hits": 3,
+    "symbol_total": 3,
+    "missing_symbols": [],
+    "build_ms": 34.92770799493883,
+    "median_query_render_ms": 5.652583000482991,
+    "tokens": 571,
+    "details": {
+      "query": "Trace cancellation and timeout of a running shell command.\nManage the shared deadline and cancellation flag.\nObserve deadline expiry while collecting process output.\nTerminate the process group and reap the process.",
+      "graph_nodes": 203,
+      "graph_edges": 1304,
+      "scan_truncated": false,
+      "parsed_files": 20,
+      "skipped_files": 0,
+      "parse_error_files": 0,
+      "cache_hits": 20,
+      "cache_misses": 0,
+      "selected_count": 24,
+      "selected_files": [
+        "tero/commands.py",
+        "tero/storage.py",
+        "tero/tool_executor.py",
+        "tero/context.py",
+        "tero/changes.py",
+        "tero/tools.py",
+        "tero/session.py",
+        "tero/execution.py",
+        "tero/agent_loop.py",
+        "tero/provider.py",
+        "tero/completion.py",
+        "tero/runtime.py"
+      ],
+      "selected_symbols": [
+        {
+          "path": "tero/commands.py",
+          "line": 37,
+          "end_line": 127,
+          "kind": "function",
+          "qualified_name": "run_command",
+          "score": 0.91823,
+          "lexical_score": 1.0,
+          "graph_score": 0.772862,
+          "reasons": [
+            "signature:timeout",
+            "symbol:command",
+            "path:command"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 56,
+          "end_line": 86,
+          "kind": "method",
+          "qualified_name": "Trace.record",
+          "score": 0.750657,
+          "lexical_score": 0.833333,
+          "graph_score": 0.649972,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 769,
+          "end_line": 823,
+          "kind": "method",
+          "qualified_name": "ToolExecutor.observe_command",
+          "score": 0.700876,
+          "lexical_score": 0.958333,
+          "graph_score": 0.296413,
+          "reasons": [
+            "signature:timeout",
+            "symbol:command",
+            "symbol:observe"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 216,
+          "end_line": 402,
+          "kind": "method",
+          "qualified_name": "ContextManager.prepare",
+          "score": 0.618333,
+          "lexical_score": 0.416667,
+          "graph_score": 1.0,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/commands.py",
+          "line": 29,
+          "end_line": 34,
+          "kind": "function",
+          "qualified_name": "stop_process",
+          "score": 0.735299,
+          "lexical_score": 0.875,
+          "graph_score": 0.479997,
+          "reasons": [
+            "path:command",
+            "symbol:process"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 40,
+          "end_line": 86,
+          "kind": "class",
+          "qualified_name": "Trace",
+          "score": 0.623294,
+          "lexical_score": 0.833333,
+          "graph_score": 0.24063,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 69,
+          "end_line": 71,
+          "kind": "method",
+          "qualified_name": "ContextManager.count",
+          "score": 0.48719,
+          "lexical_score": 0.416667,
+          "graph_score": 0.635714,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/storage.py",
+          "line": 41,
+          "end_line": 54,
+          "kind": "method",
+          "qualified_name": "Trace.__init__",
+          "score": 0.599837,
+          "lexical_score": 0.833333,
+          "graph_score": 0.23103,
+          "reasons": [
+            "name:trace"
+          ]
+        },
+        {
+          "path": "tero/changes.py",
+          "line": 74,
+          "end_line": 99,
+          "kind": "function",
+          "qualified_name": "observe_interrupted_file",
+          "score": 0.342619,
+          "lexical_score": 0.416667,
+          "graph_score": 0.178572,
+          "reasons": [
+            "symbol:observe"
+          ]
+        },
+        {
+          "path": "tero/tools.py",
+          "line": 44,
+          "end_line": 46,
+          "kind": "class",
+          "qualified_name": "ShellArgs",
+          "score": 0.325799,
+          "lexical_score": 0.416667,
+          "graph_score": 0.131848,
+          "reasons": [
+            "symbol:shell"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 122,
+          "end_line": 161,
+          "kind": "method",
+          "qualified_name": "Session.observe_result",
+          "score": 0.312409,
+          "lexical_score": 0.416667,
+          "graph_score": 0.15021,
+          "reasons": [
+            "symbol:observe"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 404,
+          "end_line": 456,
+          "kind": "method",
+          "qualified_name": "ContextManager._with_repo_map",
+          "score": 0.470739,
+          "lexical_score": 0.416667,
+          "graph_score": 0.590015,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 16,
+          "end_line": 20,
+          "kind": "method",
+          "qualified_name": "Budget.check",
+          "score": 0.25883,
+          "lexical_score": 0.0,
+          "graph_score": 0.718973,
+          "reasons": []
+        },
+        {
+          "path": "tero/context.py",
+          "line": 73,
+          "end_line": 79,
+          "kind": "method",
+          "qualified_name": "ContextManager.fits",
+          "score": 0.433716,
+          "lexical_score": 0.541667,
+          "graph_score": 0.271896,
+          "reasons": [
+            "symbol:manage",
+            "signature:output"
+          ]
+        },
+        {
+          "path": "tero/session.py",
+          "line": 178,
+          "end_line": 181,
+          "kind": "method",
+          "qualified_name": "SessionStore.path",
+          "score": 0.267581,
+          "lexical_score": 0.0,
+          "graph_score": 0.743281,
+          "reasons": []
+        },
+        {
+          "path": "tero/agent_loop.py",
+          "line": 41,
+          "end_line": 308,
+          "kind": "method",
+          "qualified_name": "AgentLoop.run",
+          "score": 0.189639,
+          "lexical_score": 0.0,
+          "graph_score": 0.526776,
+          "reasons": []
+        },
+        {
+          "path": "tero/context.py",
+          "line": 103,
+          "end_line": 183,
+          "kind": "method",
+          "qualified_name": "ContextManager.items",
+          "score": 0.375559,
+          "lexical_score": 0.416667,
+          "graph_score": 0.325628,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/provider.py",
+          "line": 50,
+          "end_line": 205,
+          "kind": "method",
+          "qualified_name": "ResponsesClient._request_once",
+          "score": 0.153749,
+          "lexical_score": 0.125,
+          "graph_score": 0.211803,
+          "reasons": [
+            "signature:output"
+          ]
+        },
+        {
+          "path": "tero/context.py",
+          "line": 82,
+          "end_line": 101,
+          "kind": "method",
+          "qualified_name": "ContextManager.unit",
+          "score": 0.372784,
+          "lexical_score": 0.416667,
+          "graph_score": 0.317918,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/completion.py",
+          "line": 8,
+          "end_line": 118,
+          "kind": "function",
+          "qualified_name": "check_completion",
+          "score": 0.116727,
+          "lexical_score": 0.0,
+          "graph_score": 0.268686,
+          "reasons": []
+        },
+        {
+          "path": "tero/execution.py",
+          "line": 7,
+          "end_line": 8,
+          "kind": "class",
+          "qualified_name": "ExecutionStopped",
+          "score": 0.155085,
+          "lexical_score": 0.0,
+          "graph_score": 0.375237,
+          "reasons": []
+        },
+        {
+          "path": "tero/context.py",
+          "line": 58,
+          "end_line": 456,
+          "kind": "class",
+          "qualified_name": "ContextManager",
+          "score": 0.350666,
+          "lexical_score": 0.416667,
+          "graph_score": 0.200925,
+          "reasons": [
+            "symbol:manage"
+          ]
+        },
+        {
+          "path": "tero/runtime.py",
+          "line": 53,
+          "end_line": 63,
+          "kind": "method",
+          "qualified_name": "Tero.redact",
+          "score": 0.111969,
+          "lexical_score": 0.0,
+          "graph_score": 0.311025,
+          "reasons": []
+        },
+        {
+          "path": "tero/tool_executor.py",
+          "line": 34,
+          "end_line": 48,
+          "kind": "class",
+          "qualified_name": "ToolResult",
+          "score": 0.141555,
+          "lexical_score": 0.0,
+          "graph_score": 0.337652,
+          "reasons": []
+        }
+      ],
+      "truncated": true
+    }
+  }
+]

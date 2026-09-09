@@ -1,0 +1,30 @@
+{
+  "context": {
+    "cases_with_paired_usage": 12,
+    "mean_raw_input_tokens": 17567,
+    "mean_managed_input_tokens": 9324.666666666666,
+    "micro_input_reduction": 0.46919413293865386,
+    "variants": {
+      "raw": {
+        "runs": 12,
+        "correct": 12,
+        "errors": 0,
+        "request_preserved": 12,
+        "tool_pairs_valid": 12,
+        "summary_calls": 0,
+        "reported_all_input_tokens": 210804,
+        "reported_all_output_tokens": 3040
+      },
+      "managed": {
+        "runs": 12,
+        "correct": 12,
+        "errors": 0,
+        "request_preserved": 12,
+        "tool_pairs_valid": 12,
+        "summary_calls": 6,
+        "reported_all_input_tokens": 177574,
+        "reported_all_output_tokens": 11678
+      }
+    }
+  }
+}

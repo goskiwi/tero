@@ -1,0 +1,49 @@
+Repository map (task-ranked Python signatures; use read_file for details):
+tero/changes.py
+  L74 function observe_interrupted_file — def observe_interrupted_file(session, entry_index, call)
+tero/agent_loop.py
+  L41 method AgentLoop.run — def run(self, message, *, budget=None)
+tero/completion.py
+  L8 function check_completion — def check_completion(session, executor, store)
+tero/execution.py
+  L7 class ExecutionStopped — class ExecutionStopped(RuntimeError)
+tero/storage.py
+  L56 method Trace.record — def record(self, event, **data)
+tero/commands.py
+  L37 function run_command — def run_command(command, root, timeout, budget)
+tero/cli.py
+  L99 function main — def main(argv=None)
+tero/tool_executor.py
+  L769 method ToolExecutor.observe_command — def observe_command(self, command, timeout)
+tero/agent_loop.py
+  L37 class AgentLoop — class AgentLoop
+tero/execution.py
+  L16 method Budget.check — def check(self)
+tero/session.py
+  L178 method SessionStore.path — def path(self, session_id)
+tero/storage.py
+  L40 class Trace — class Trace
+tero/tool_executor.py
+  L297 method ToolExecutor.execute — def execute(self, name, arguments, *, on_start=None)
+tero/execution.py
+  L22 method Budget.remaining — def remaining(self, limit=None)
+tero/agent_loop.py
+  L59 function AgentLoop.run.save_mutation — def save_mutation(receipt)
+tero/tool_batch.py
+  L11 function execute_batch — def execute_batch(executor, calls, on_start, stopped)
+tero/repo_map.py
+  L557 method RepoMap._parse_file — def _parse_file(self, relative_path, fingerprint, *, check_active=lambda: None)
+tero/storage.py
+  L41 method Trace.__init__ — def __init__(self, path, redactor, display=None)
+tero/agent_loop.py
+  L159 function AgentLoop.run.start — def start(call, entry=entry, entry_index=entry_index)
+tero/commands.py
+  L29 function stop_process — def stop_process(process)
+tero/changes.py
+  L11 function build_task_diff — def build_task_diff(session, artifacts, budget)
+tero/agent_loop.py
+  L399 method AgentLoop._delegate — def _delegate(self, args, budget)
+tero/session.py
+  L19 function new_loop_control — def new_loop_control()
+tero/cli.py
+  L83 function show_result — def show_result(result, memory_enabled)

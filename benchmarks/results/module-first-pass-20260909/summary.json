@@ -1,0 +1,83 @@
+{
+  "runtime_commit": "2d41fb1199e9023b0eaca7f0413e48d40269c3a2",
+  "runtime_modified_during_experiment": false,
+  "repetitions": 1,
+  "context": {
+    "cases_with_paired_usage": 12,
+    "mean_raw_input_tokens": 17557.333333333332,
+    "mean_managed_input_tokens": 9236.166666666666,
+    "micro_input_reduction": 0.4739425121506683,
+    "variants": {
+      "raw": {
+        "runs": 12,
+        "correct": 12,
+        "errors": 0,
+        "request_preserved": 12,
+        "tool_pairs_valid": 12,
+        "summary_calls": 0,
+        "reported_all_input_tokens": 210688,
+        "reported_all_output_tokens": 3627,
+        "correct_fields": 72,
+        "total_fields": 72,
+        "mean_seconds": 2.796264284583837,
+        "mean_prepare_seconds": 0.0004943089188600425,
+        "usage_complete": true
+      },
+      "managed": {
+        "runs": 12,
+        "correct": 11,
+        "errors": 0,
+        "request_preserved": 12,
+        "tool_pairs_valid": 12,
+        "summary_calls": 7,
+        "reported_all_input_tokens": 175222,
+        "reported_all_output_tokens": 10232,
+        "correct_fields": 69,
+        "total_fields": 72,
+        "mean_seconds": 6.916662551914972,
+        "mean_prepare_seconds": 4.55231927416753,
+        "usage_complete": false
+      }
+    }
+  },
+  "memory": {
+    "on": {
+      "cases": 6,
+      "correct": 4,
+      "recall_errors": 2,
+      "mean_seconds": 3.6053470140007753,
+      "mean_recall_seconds": 2.152883083666287,
+      "unknown_answers": 3,
+      "selected_no_memory": 3
+    },
+    "off": {
+      "cases": 6,
+      "correct": 1,
+      "recall_errors": 0,
+      "mean_seconds": 1.4166948265022559,
+      "mean_recall_seconds": 2.0069664363594104e-05,
+      "unknown_answers": 6,
+      "selected_no_memory": 6
+    },
+    "irrelevant": {
+      "cases": 6,
+      "correct": 1,
+      "recall_errors": 0,
+      "mean_seconds": 4.325811145494906,
+      "mean_recall_seconds": 2.7621049579950827,
+      "unknown_answers": 6,
+      "selected_no_memory": 6
+    }
+  },
+  "recovery": {
+    "scenarios": 10,
+    "met_expected_conditions": 10,
+    "crash_recovery_scenarios": 4,
+    "automatically_completed": 3,
+    "preserved_external_edit_and_stopped": 1
+  },
+  "method_corrections": [
+    "Initial context probe used ambiguous task ticket wording; preserve initial raw scores, rerun all context pairs with explicit ticket key.",
+    "Initial unrelated-memory extraction failed, producing no card; exclude that invalid noise arm and rerun noise queries using other already-extracted categories. On/off memory failures were not rerun."
+  ]
+}
