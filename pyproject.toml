@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tero"
+version = "0.2.0"
+description = "A readable local agent harness with native tools and resumable sessions"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27,<1", "pydantic>=2.12,<3", "tiktoken>=0.11,<1",
+    "tree-sitter>=0.25,<0.26", "tree-sitter-python>=0.25,<0.26",
+]
+
+[project.scripts]
+tero = "tero.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<9", "ruff>=0.4"]
+
+[tool.setuptools.packages.find]
+include = ["tero*", "applications*", "evaluations*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
